@@ -1,0 +1,43 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="FullscreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    </style>
+
+    <style name="AccountTheme" parent="Theme.AppCompat.Light">
+        <item name="android:textViewStyle">@style/AccountContentTextStyle</item>
+        <item name="android:buttonStyle">@style/GreyCapsButtonStyle</item>
+    </style>
+    <style name="AccountContentTextStyle" parent="android:Theme.Material">
+        <item name="android:textColor">@color/grey</item>
+    </style>
+    <style name="GreyCapsButtonStyle" parent="android:Theme.Material">
+        <item name="android:textSize">32sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:background">@drawable/button_bg</item>
+        <item name="android:padding">14dp</item>
+        <item name="android:width">212dp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+    <style name="AccountTheme.Heading1">
+        <item name="android:textSize">32sp</item>
+    </style>
+    <style name="AccountTheme.Heading2">
+        <item name="android:textSize">25sp</item>
+    </style>
+    <style name="AccountTheme.ButtonSmall" parent="GreyCapsButtonStyle">
+        <item name="android:textSize">14sp</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+
+    <color name="grey">#707070</color>
+</resources>

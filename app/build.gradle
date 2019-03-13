@@ -1,0 +1,68 @@
+apply plugin: 'com.android.application'
+
+android {
+    /*signingConfigs {
+        releaseConfig {
+            keyAlias 'key0'
+            keyPassword 'raktas'
+            storeFile file('C:/gradientKey.jks')
+            storePassword 'raktas'
+        }
+    }*/
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.gradient.mapbox.mapboxgradient"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "MAPBOX_ACCESS_TOKEN", "\"sk.eyJ1Ijoia2FzcGlzIiwiYSI6ImNqbjh4bHN4dTN4a2Eza3F2NWQwdHY3dTQifQ.VT8FfbTgDnJ5TtG1dET3VA\""
+        buildConfigField "String", "MAPBOX_API_URL", "\"https://api.mapbox.com\""
+        buildConfigField "String", "MAPBOX_USERNAME", "\"kaspis\""
+        buildConfigField "String", "MAPBOX_DATASET_ID", "\"cjn8ylgcj0h552vpb2bstmw2p\""
+        buildConfigField "String", "FIREBASE_URL", "\"https://hmnst002.firebaseio.com/\""
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.releaseConfig
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'com.android.support:support-media-compat:28.0.0'
+    implementation 'com.android.support:animated-vector-drawable:28.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    /**
+     * Mapbox
+     */
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:6.6.3'
+    implementation('com.mapbox.mapboxsdk:mapbox-android-services:1.2.1@aar') {
+        transitive = true
+    }
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    /**
+     * Google services and APIs
+     */
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
+    implementation 'com.google.android.gms:play-services-auth:16.0.1'
+    implementation 'com.google.firebase:firebase-auth:16.0.5'
+    implementation 'com.google.firebase:firebase-database:16.0.4'
+}
+
+
+apply plugin: 'com.google.gms.google-services'

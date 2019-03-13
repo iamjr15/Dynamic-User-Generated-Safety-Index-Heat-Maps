@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "966011457933",
+    "firebase_url": "https://hmnst002.firebaseio.com",
+    "project_id": "hmnst002",
+    "storage_bucket": "hmnst002.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:966011457933:android:0c2a8f357bf95eca",
+        "android_client_info": {
+          "package_name": "com.gradient.mapbox.mapboxgradient"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "966011457933-bqvuqjscruj95ofsd348ofumvrg6gm04.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3GFRoZ6ArsSBv5biTxRyj2cvZymf4D5A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

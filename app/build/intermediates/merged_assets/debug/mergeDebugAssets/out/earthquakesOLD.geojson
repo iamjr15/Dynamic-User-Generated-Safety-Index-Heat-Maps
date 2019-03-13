@@ -1,0 +1,152 @@
+{
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "coordinates": [
+          23.917051,
+          54.904512
+        ],
+        "type": "Point"
+      },
+      "id": "14e7c1041932cd8fe5883f1dcfe6cef6"
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "coordinates": [
+          23.934572,
+          54.899852
+        ],
+        "type": "Point"
+      },
+      "id": "17d7a014b79c3fd9625a30ca37455fb0"
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "coordinates": [
+          23.933332,
+          54.899966
+        ],
+        "type": "Point"
+      },
+      "id": "36a69f89e8cbe69ce23d8c3103b3963b"
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "coordinates": [
+          23.933317,
+          54.900033
+        ],
+        "type": "Point"
+      },
+      "id": "43227a1ff25d4afd4533abdd82b1bc8b"
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "coordinates": [
+          23.939885,
+          54.902399
+        ],
+        "type": "Point"
+      },
+      "id": "5f9b872c45f18f6bf9b7648d9aa218d5"
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "coordinates": [
+          23.931552,
+          54.906511
+        ],
+        "type": "Point"
+      },
+      "id": "8fe39ba973ec4e62ac6d8a950d6a9273"
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "coordinates": [
+          23.933798,
+          54.899092
+        ],
+        "type": "Point"
+      },
+      "id": "a99986e128a74c3806d11febeb485507"
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "coordinates": [
+          23.933375,
+          54.90001
+        ],
+        "type": "Point"
+      },
+      "id": "ab51b462df7bb5b75e33233c84c8ed9d"
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "coordinates": [
+          23.933301,
+          54.900017
+        ],
+        "type": "Point"
+      },
+      "id": "b97c5239b35bf6001d3aa41d53a1df40"
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "coordinates": [
+          23.918888,
+          54.902776
+        ],
+        "type": "Point"
+      },
+      "id": "c1d370ec7fbbc9656f1637a19fd81ad7"
+    },
+    {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "coordinates": [
+          23.933431,
+          54.899975
+        ],
+        "type": "Point"
+      },
+      "id": "ee113825338849475fa53b1640e7c531"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "wikidata": "Q4115712",
+        "place_name": "Kaunas, Kaunas, Lithuania"
+      },
+      "geometry": {
+        "coordinates": [
+          23.93333,
+          54.9
+        ],
+        "type": "Point"
+      },
+      "id": "place.9000820625161529"
+    }
+  ],
+  "type": "FeatureCollection"
+}

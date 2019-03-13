@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">Heatmap app</string>
+
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="mapbox_access_token" translatable="false">sk.eyJ1Ijoia2FzcGlzIiwiYSI6ImNqbjh4bHN4dTN4a2Eza3F2NWQwdHY3dTQifQ.VT8FfbTgDnJ5TtG1dET3VA</string>
+    <string name="mapbox_style_url">mapbox://styles/kaspis/cjn8yqk3o3lpq2smk3p7amc4c</string>
+    <string name="gps_unavailable">GPS data unavailable</string>
+    <string name="waiting_for_gps">Waiting for GPS data</string>
+    <string name="feature_posted_to_server">Feature posted to dataset</string>
+    <string name="select_or_give_gps">Select a place or turn your GPS on</string>
+    <string name="auth_failed">Authentification failed</string>
+    <string name="login">Login</string>
+    <string name="login_failed">Login failed</string>
+    <string name="email">e-mail</string>
+    <string name="password">password</string>
+    <string name="signup">Signup</string>
+    <string name="name">Name</string>
+    <string name="login_success">Logged in sucesfully</string>
+    <string name="registration_failed">Registration failed</string>
+    <string name="phone">Phone</string>
+    <string name="logout">Logout</string>
+    <string name="registration_failed_empty_fields">Registration failed. Please provide registration data</string>
+    <string name="logout_on_exit">Are you sure to exit? You will be logged out</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="confirm_exit">Are you sure you want to exit?</string>
+    <string name="login_failed_empty_fields">Login failed. Fill all fields</string>
+    <string name="vote_accepted_new_score">Thank you. Your total vote for this feature:</string>
+    <string name="vote_not_accepted">Vote not accepted. Check min/max. Your current vote</string>
+    <string name="score">Score</string>
+    <string name="fit_to_screen">Fit to screen</string>
+    <string name="verify_phone">Verify your mobile</string>
+    <string name="enter_code">Enter code</string>
+    <string name="verify">Verify</string>
+    <string name="error">Error</string>
+    <string name="error_bad_phone_number">Bad phone number format, please check again</string>
+    <string name="phone_auth_success">Phone authentication success</string>
+    <string name="resend_verification">Resend verification code</string>
+    <string name="error_phone_not_entered">Please enter phone number</string>
+    <string name="error_bad_phone_format">Bad phone format. It should start with + and contain only numbers</string>
+    <string name="error_wrong_sms_verification_code">Wrong verification code, please try again</string>
+    <string name="sms_send_check_code">SMS sent. Please check your message box</string>
+    <string name="form_enter_email">Please enter E-mail</string>
+    <string name="form_enter_password">Please enter password</string>
+    <string name="form_enter_phone">Please enter phone</string>
+</resources>

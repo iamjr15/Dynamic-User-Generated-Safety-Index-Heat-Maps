@@ -1,0 +1,390 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:2:1-28:12
+INJECTED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:2:1-28:12
+INJECTED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:2:1-28:12
+INJECTED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:2:1-28:12
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-services:1.2.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/ffd6a36f64f997b5a62ea6e22cf55ecc/AndroidManifest.xml:2:1-17:12
+MERGED from [com.android.support:design:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/8e0ff15247fea001287ebe717a9839d3/AndroidManifest.xml:17:1-24:12
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-sdk:6.6.3] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/cec68e60f47b1e192bdf3baaffaae389/AndroidManifest.xml:2:1-20:12
+MERGED from [com.android.support:appcompat-v7:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/51b18d6c1c65f4280c23cdd928d8eae4/AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.android.gms:play-services-location:16.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/68390371ef0773b3f6a6b1797bffbe66/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-auth:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/bef623f93f2cec3dc00f733cbaddde41/AndroidManifest.xml:17:1-39:12
+MERGED from [com.google.firebase:firebase-auth:16.0.5] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/d88782bc54b2e6284db77e5ccee3aeae/AndroidManifest.xml:17:1-42:12
+MERGED from [com.google.firebase:firebase-database:16.0.4] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/c6f56573f900bb8412460acf50b2ba2e/AndroidManifest.xml:15:1-25:12
+MERGED from [com.google.android.gms:play-services-auth-api-phone:16.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/3d7ed668daec4d65e1a7442a0496b3b4/AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.gms:play-services-auth-base:16.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/6b76ac9ac26fa8333e23243ca0923b9d/AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.gms:play-services-flags:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/22a27b7268372ee567dd8de70c5e2682/AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.firebase:firebase-auth-interop:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/8ecd4373d3a39528cfd226eb07439c60/AndroidManifest.xml:2:1-10:12
+MERGED from [com.google.android.gms:play-services-base:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/7ce7705d004bb4a5fd642ff812315a3b/AndroidManifest.xml:17:1-29:12
+MERGED from [com.google.android.gms:play-services-places-placereport:16.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/5b0d170f12ebdd325abcf56b81e86ffb/AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.firebase:firebase-common:16.0.3] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/b33d58b872be90037081a5ce2ac45467/AndroidManifest.xml:2:1-17:12
+MERGED from [com.google.android.gms:play-services-tasks:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/3a061327f6fcab1f8bfaae8dd22ad065/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.firebase:firebase-database-collection:16.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/d272ba01b50fff1aa1ca37b29a932f36/AndroidManifest.xml:2:1-8:12
+MERGED from [com.google.android.gms:play-services-basement:16.1.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/e4626410f1d70ad7a76ccb17afcd3b39/AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support:support-v4:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/9e845be87fa6ac073884b3290108140a/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-media-compat:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/5301b3a97eec6355d09c47a133bfcc25/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/4a4a6bc3959dc1056156e8d49173e48a/AndroidManifest.xml:17:1-22:12
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-telemetry:3.2.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/8fe505b4adde064a60c621813a3db385/AndroidManifest.xml:2:1-19:12
+MERGED from [android.arch.lifecycle:extensions:1.1.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/62130f0406fab373c0ab84a3857ada40/AndroidManifest.xml:17:1-30:12
+MERGED from [com.android.support:support-fragment:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/72f7e5666364922d36b5f357b39ae520/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:recyclerview-v7:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/f75818f94ac9745168ead167d1509582/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/42f29f6980c2101fd30101bbf292ceaf/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/d2c18d6e06fa76bbc22202643a30bd31/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-vector-drawable:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/89a2fd3b047295eb9dca99f84813b8e2/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:transition:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/18a359afd924491faa3627b492c1b30b/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:loader:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/0d5fc4cf776b2cc2fceb8756846a7599/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:viewpager:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/618fd57cca691a907353e1d26a4adfe2/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:coordinatorlayout:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/fb0c61c634412828e7454b9c91219734/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:drawerlayout:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/49ba55a271082bd9685303725539b4b7/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:slidingpanelayout:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/c44000d96f4ba2d52225780c199b2cde/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:customview:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/3eee10f10b367367e60ca13dfb699f97/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/5fe2bf33beadc388881df7a57e3d1f41/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/fc744292878c0a0d2b7c4548c31cb515/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/08b5a70a6bc8371219d50ee25a232e85/AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/0a8624c3d002ab3954ea123aeddaea5b/AndroidManifest.xml:17:1-25:12
+MERGED from [com.android.support:cursoradapter:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/7fc1ba1fddf94f2b05ecd2023459f632/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:cardview-v7:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/cfbfae9add160db0d81201134b166f26/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:runtime:1.1.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/8354cd815fa7441902af211be0755b07/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:documentfile:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/5ac4d5027b3096b3c7efbb97e90ba90c/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/33cc7fa04b7a3ac4c20ff850da261739/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:print:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/c4877f8a5efb3acea148be6492f04861/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/cd8fd763d98f5d88cecb50593cf417a8/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:interpolator:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/0bf599ab76e93d5554a245f0ab787845/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata:1.1.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/626c1ca7eb227b338b7ddf9656003964/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/809702f94d714f4dbecb32074fc3a676/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.core:runtime:1.1.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/583814473f08494aefe41a8d85581f11/AndroidManifest.xml:17:1-22:12
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-gestures:0.2.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/be252c6cdb9eba33ae4ac971c86f398d/AndroidManifest.xml:2:1-11:12
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-core:0.2.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/0b82e43fb55f3f82956b8b2b189aae91/AndroidManifest.xml:2:1-13:12
+MERGED from [com.jakewharton.timber:timber:4.5.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/74c9c32bbbfe1f888756868fdf2a9a88/AndroidManifest.xml:2:1-10:12
+INJECTED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:2:1-28:12
+INJECTED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:2:1-28:12
+INJECTED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:2:1-28:12
+	package
+		ADDED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:4:5-49
+		INJECTED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml
+		ADDED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:2:1-28:12
+		INJECTED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml
+	xmlns:tools
+		ADDED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:3:5-51
+	android:versionCode
+		INJECTED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml
+		ADDED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:2:1-28:12
+		INJECTED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:2:11-69
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:5:5-79
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-core:0.2.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/0b82e43fb55f3f82956b8b2b189aae91/AndroidManifest.xml:11:5-79
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-core:0.2.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/0b82e43fb55f3f82956b8b2b189aae91/AndroidManifest.xml:11:5-79
+	android:name
+		ADDED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:5:22-76
+application
+ADDED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:7:5-26:19
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-services:1.2.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/ffd6a36f64f997b5a62ea6e22cf55ecc/AndroidManifest.xml:11:5-15:19
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-services:1.2.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/ffd6a36f64f997b5a62ea6e22cf55ecc/AndroidManifest.xml:11:5-15:19
+MERGED from [com.android.support:design:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/8e0ff15247fea001287ebe717a9839d3/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:design:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/8e0ff15247fea001287ebe717a9839d3/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-location:16.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/68390371ef0773b3f6a6b1797bffbe66/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-location:16.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/68390371ef0773b3f6a6b1797bffbe66/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-auth:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/bef623f93f2cec3dc00f733cbaddde41/AndroidManifest.xml:22:5-37:19
+MERGED from [com.google.android.gms:play-services-auth:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/bef623f93f2cec3dc00f733cbaddde41/AndroidManifest.xml:22:5-37:19
+MERGED from [com.google.firebase:firebase-auth:16.0.5] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/d88782bc54b2e6284db77e5ccee3aeae/AndroidManifest.xml:23:5-40:19
+MERGED from [com.google.firebase:firebase-auth:16.0.5] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/d88782bc54b2e6284db77e5ccee3aeae/AndroidManifest.xml:23:5-40:19
+MERGED from [com.google.firebase:firebase-auth-interop:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/8ecd4373d3a39528cfd226eb07439c60/AndroidManifest.xml:7:5-8:19
+MERGED from [com.google.firebase:firebase-auth-interop:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/8ecd4373d3a39528cfd226eb07439c60/AndroidManifest.xml:7:5-8:19
+MERGED from [com.google.android.gms:play-services-base:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/7ce7705d004bb4a5fd642ff812315a3b/AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-base:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/7ce7705d004bb4a5fd642ff812315a3b/AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-places-placereport:16.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/5b0d170f12ebdd325abcf56b81e86ffb/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-places-placereport:16.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/5b0d170f12ebdd325abcf56b81e86ffb/AndroidManifest.xml:22:5-20
+MERGED from [com.google.firebase:firebase-common:16.0.3] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/b33d58b872be90037081a5ce2ac45467/AndroidManifest.xml:9:5-15:19
+MERGED from [com.google.firebase:firebase-common:16.0.3] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/b33d58b872be90037081a5ce2ac45467/AndroidManifest.xml:9:5-15:19
+MERGED from [com.google.android.gms:play-services-tasks:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/3a061327f6fcab1f8bfaae8dd22ad065/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-tasks:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/3a061327f6fcab1f8bfaae8dd22ad065/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-basement:16.1.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/e4626410f1d70ad7a76ccb17afcd3b39/AndroidManifest.xml:22:5-26:19
+MERGED from [com.google.android.gms:play-services-basement:16.1.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/e4626410f1d70ad7a76ccb17afcd3b39/AndroidManifest.xml:22:5-26:19
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-telemetry:3.2.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/8fe505b4adde064a60c621813a3db385/AndroidManifest.xml:15:5-17:19
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-telemetry:3.2.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/8fe505b4adde064a60c621813a3db385/AndroidManifest.xml:15:5-17:19
+MERGED from [android.arch.lifecycle:extensions:1.1.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/62130f0406fab373c0ab84a3857ada40/AndroidManifest.xml:22:5-28:19
+MERGED from [android.arch.lifecycle:extensions:1.1.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/62130f0406fab373c0ab84a3857ada40/AndroidManifest.xml:22:5-28:19
+MERGED from [com.android.support:support-compat:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/08b5a70a6bc8371219d50ee25a232e85/AndroidManifest.xml:22:5-94
+MERGED from [com.android.support:support-compat:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/08b5a70a6bc8371219d50ee25a232e85/AndroidManifest.xml:22:5-94
+MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/0a8624c3d002ab3954ea123aeddaea5b/AndroidManifest.xml:22:5-23:19
+MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/0a8624c3d002ab3954ea123aeddaea5b/AndroidManifest.xml:22:5-23:19
+MERGED from [com.jakewharton.timber:timber:4.5.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/74c9c32bbbfe1f888756868fdf2a9a88/AndroidManifest.xml:8:5-20
+MERGED from [com.jakewharton.timber:timber:4.5.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/74c9c32bbbfe1f888756868fdf2a9a88/AndroidManifest.xml:8:5-20
+	android:appComponentFactory
+		ADDED from [com.android.support:support-compat:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/08b5a70a6bc8371219d50ee25a232e85/AndroidManifest.xml:22:18-91
+	android:supportsRtl
+		ADDED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:12:9-35
+	android:label
+		ADDED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:10:9-41
+	tools:ignore
+		ADDED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:14:9-48
+	android:roundIcon
+		ADDED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:11:9-54
+	android:icon
+		ADDED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:9:9-43
+	android:allowBackup
+		ADDED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:8:9-35
+	android:theme
+		ADDED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:13:9-40
+activity#com.gradient.mapbox.mapboxgradient.AccountActivity
+ADDED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:15:9-23:20
+	android:configChanges
+		ADDED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:17:13-74
+	android:theme
+		ADDED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:18:13-48
+	android:name
+		ADDED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:16:13-44
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:19:13-22:29
+action#android.intent.action.MAIN
+ADDED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:20:17-69
+	android:name
+		ADDED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:20:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:21:17-77
+	android:name
+		ADDED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:21:27-74
+activity#com.gradient.mapbox.mapboxgradient.MapActivity
+ADDED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:24:9-25:53
+	android:theme
+		ADDED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:25:13-51
+	android:name
+		ADDED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml:24:19-46
+uses-sdk
+INJECTED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml
+INJECTED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-services:1.2.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/ffd6a36f64f997b5a62ea6e22cf55ecc/AndroidManifest.xml:7:5-9:41
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-services:1.2.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/ffd6a36f64f997b5a62ea6e22cf55ecc/AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:design:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/8e0ff15247fea001287ebe717a9839d3/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:design:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/8e0ff15247fea001287ebe717a9839d3/AndroidManifest.xml:20:5-44
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-sdk:6.6.3] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/cec68e60f47b1e192bdf3baaffaae389/AndroidManifest.xml:5:5-7:41
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-sdk:6.6.3] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/cec68e60f47b1e192bdf3baaffaae389/AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support:appcompat-v7:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/51b18d6c1c65f4280c23cdd928d8eae4/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/51b18d6c1c65f4280c23cdd928d8eae4/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-location:16.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/68390371ef0773b3f6a6b1797bffbe66/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-location:16.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/68390371ef0773b3f6a6b1797bffbe66/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-auth:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/bef623f93f2cec3dc00f733cbaddde41/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-auth:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/bef623f93f2cec3dc00f733cbaddde41/AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-auth:16.0.5] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/d88782bc54b2e6284db77e5ccee3aeae/AndroidManifest.xml:21:5-44
+MERGED from [com.google.firebase:firebase-auth:16.0.5] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/d88782bc54b2e6284db77e5ccee3aeae/AndroidManifest.xml:21:5-44
+MERGED from [com.google.firebase:firebase-database:16.0.4] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/c6f56573f900bb8412460acf50b2ba2e/AndroidManifest.xml:18:5-20:41
+MERGED from [com.google.firebase:firebase-database:16.0.4] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/c6f56573f900bb8412460acf50b2ba2e/AndroidManifest.xml:18:5-20:41
+MERGED from [com.google.android.gms:play-services-auth-api-phone:16.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/3d7ed668daec4d65e1a7442a0496b3b4/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-auth-api-phone:16.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/3d7ed668daec4d65e1a7442a0496b3b4/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-auth-base:16.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/6b76ac9ac26fa8333e23243ca0923b9d/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-auth-base:16.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/6b76ac9ac26fa8333e23243ca0923b9d/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-flags:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/22a27b7268372ee567dd8de70c5e2682/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-flags:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/22a27b7268372ee567dd8de70c5e2682/AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-auth-interop:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/8ecd4373d3a39528cfd226eb07439c60/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-auth-interop:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/8ecd4373d3a39528cfd226eb07439c60/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-base:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/7ce7705d004bb4a5fd642ff812315a3b/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/7ce7705d004bb4a5fd642ff812315a3b/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-places-placereport:16.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/5b0d170f12ebdd325abcf56b81e86ffb/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-places-placereport:16.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/5b0d170f12ebdd325abcf56b81e86ffb/AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-common:16.0.3] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/b33d58b872be90037081a5ce2ac45467/AndroidManifest.xml:5:5-7:41
+MERGED from [com.google.firebase:firebase-common:16.0.3] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/b33d58b872be90037081a5ce2ac45467/AndroidManifest.xml:5:5-7:41
+MERGED from [com.google.android.gms:play-services-tasks:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/3a061327f6fcab1f8bfaae8dd22ad065/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-tasks:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/3a061327f6fcab1f8bfaae8dd22ad065/AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-database-collection:16.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/d272ba01b50fff1aa1ca37b29a932f36/AndroidManifest.xml:6:5-44
+MERGED from [com.google.firebase:firebase-database-collection:16.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/d272ba01b50fff1aa1ca37b29a932f36/AndroidManifest.xml:6:5-44
+MERGED from [com.google.android.gms:play-services-basement:16.1.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/e4626410f1d70ad7a76ccb17afcd3b39/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-basement:16.1.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/e4626410f1d70ad7a76ccb17afcd3b39/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/9e845be87fa6ac073884b3290108140a/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/9e845be87fa6ac073884b3290108140a/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/5301b3a97eec6355d09c47a133bfcc25/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/5301b3a97eec6355d09c47a133bfcc25/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/4a4a6bc3959dc1056156e8d49173e48a/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/4a4a6bc3959dc1056156e8d49173e48a/AndroidManifest.xml:20:5-44
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-telemetry:3.2.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/8fe505b4adde064a60c621813a3db385/AndroidManifest.xml:11:5-13:41
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-telemetry:3.2.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/8fe505b4adde064a60c621813a3db385/AndroidManifest.xml:11:5-13:41
+MERGED from [android.arch.lifecycle:extensions:1.1.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/62130f0406fab373c0ab84a3857ada40/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:extensions:1.1.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/62130f0406fab373c0ab84a3857ada40/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/72f7e5666364922d36b5f357b39ae520/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/72f7e5666364922d36b5f357b39ae520/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/f75818f94ac9745168ead167d1509582/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/f75818f94ac9745168ead167d1509582/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/42f29f6980c2101fd30101bbf292ceaf/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/42f29f6980c2101fd30101bbf292ceaf/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/d2c18d6e06fa76bbc22202643a30bd31/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/d2c18d6e06fa76bbc22202643a30bd31/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/89a2fd3b047295eb9dca99f84813b8e2/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/89a2fd3b047295eb9dca99f84813b8e2/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/18a359afd924491faa3627b492c1b30b/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/18a359afd924491faa3627b492c1b30b/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:loader:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/0d5fc4cf776b2cc2fceb8756846a7599/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:loader:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/0d5fc4cf776b2cc2fceb8756846a7599/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:viewpager:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/618fd57cca691a907353e1d26a4adfe2/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:viewpager:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/618fd57cca691a907353e1d26a4adfe2/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:coordinatorlayout:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/fb0c61c634412828e7454b9c91219734/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:coordinatorlayout:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/fb0c61c634412828e7454b9c91219734/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:drawerlayout:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/49ba55a271082bd9685303725539b4b7/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:drawerlayout:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/49ba55a271082bd9685303725539b4b7/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:slidingpanelayout:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/c44000d96f4ba2d52225780c199b2cde/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:slidingpanelayout:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/c44000d96f4ba2d52225780c199b2cde/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customview:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/3eee10f10b367367e60ca13dfb699f97/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customview:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/3eee10f10b367367e60ca13dfb699f97/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/5fe2bf33beadc388881df7a57e3d1f41/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/5fe2bf33beadc388881df7a57e3d1f41/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/fc744292878c0a0d2b7c4548c31cb515/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/fc744292878c0a0d2b7c4548c31cb515/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/08b5a70a6bc8371219d50ee25a232e85/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/08b5a70a6bc8371219d50ee25a232e85/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/0a8624c3d002ab3954ea123aeddaea5b/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/0a8624c3d002ab3954ea123aeddaea5b/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cursoradapter:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/7fc1ba1fddf94f2b05ecd2023459f632/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cursoradapter:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/7fc1ba1fddf94f2b05ecd2023459f632/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cardview-v7:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/cfbfae9add160db0d81201134b166f26/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cardview-v7:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/cfbfae9add160db0d81201134b166f26/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/8354cd815fa7441902af211be0755b07/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/8354cd815fa7441902af211be0755b07/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:documentfile:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/5ac4d5027b3096b3c7efbb97e90ba90c/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:documentfile:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/5ac4d5027b3096b3c7efbb97e90ba90c/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/33cc7fa04b7a3ac4c20ff850da261739/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/33cc7fa04b7a3ac4c20ff850da261739/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:print:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/c4877f8a5efb3acea148be6492f04861/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:print:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/c4877f8a5efb3acea148be6492f04861/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/cd8fd763d98f5d88cecb50593cf417a8/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/cd8fd763d98f5d88cecb50593cf417a8/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:interpolator:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/0bf599ab76e93d5554a245f0ab787845/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:interpolator:28.0.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/0bf599ab76e93d5554a245f0ab787845/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata:1.1.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/626c1ca7eb227b338b7ddf9656003964/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata:1.1.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/626c1ca7eb227b338b7ddf9656003964/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/809702f94d714f4dbecb32074fc3a676/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/809702f94d714f4dbecb32074fc3a676/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/583814473f08494aefe41a8d85581f11/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/583814473f08494aefe41a8d85581f11/AndroidManifest.xml:20:5-44
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-gestures:0.2.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/be252c6cdb9eba33ae4ac971c86f398d/AndroidManifest.xml:7:5-9:41
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-gestures:0.2.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/be252c6cdb9eba33ae4ac971c86f398d/AndroidManifest.xml:7:5-9:41
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-core:0.2.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/0b82e43fb55f3f82956b8b2b189aae91/AndroidManifest.xml:7:5-9:41
+MERGED from [com.mapbox.mapboxsdk:mapbox-android-core:0.2.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/0b82e43fb55f3f82956b8b2b189aae91/AndroidManifest.xml:7:5-9:41
+MERGED from [com.jakewharton.timber:timber:4.5.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/74c9c32bbbfe1f888756868fdf2a9a88/AndroidManifest.xml:6:5-43
+MERGED from [com.jakewharton.timber:timber:4.5.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/74c9c32bbbfe1f888756868fdf2a9a88/AndroidManifest.xml:6:5-43
+INJECTED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml
+INJECTED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml
+		ADDED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml
+		ADDED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/rehanz/Desktop/Wizy/HeatMap_v1 2/app/src/main/AndroidManifest.xml
+uses-feature#0x00020000
+ADDED from [com.mapbox.mapboxsdk:mapbox-android-sdk:6.6.3] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/cec68e60f47b1e192bdf3baaffaae389/AndroidManifest.xml:9:5-11:35
+	android:glEsVersion
+		ADDED from [com.mapbox.mapboxsdk:mapbox-android-sdk:6.6.3] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/cec68e60f47b1e192bdf3baaffaae389/AndroidManifest.xml:10:9-41
+	android:required
+		ADDED from [com.mapbox.mapboxsdk:mapbox-android-sdk:6.6.3] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/cec68e60f47b1e192bdf3baaffaae389/AndroidManifest.xml:11:9-32
+uses-feature#android.hardware.wifi
+ADDED from [com.mapbox.mapboxsdk:mapbox-android-sdk:6.6.3] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/cec68e60f47b1e192bdf3baaffaae389/AndroidManifest.xml:12:5-14:36
+	android:required
+		ADDED from [com.mapbox.mapboxsdk:mapbox-android-sdk:6.6.3] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/cec68e60f47b1e192bdf3baaffaae389/AndroidManifest.xml:14:9-33
+	android:name
+		ADDED from [com.mapbox.mapboxsdk:mapbox-android-sdk:6.6.3] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/cec68e60f47b1e192bdf3baaffaae389/AndroidManifest.xml:13:9-45
+uses-permission#android.permission.INTERNET
+ADDED from [com.mapbox.mapboxsdk:mapbox-android-sdk:6.6.3] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/cec68e60f47b1e192bdf3baaffaae389/AndroidManifest.xml:16:5-67
+MERGED from [com.google.firebase:firebase-database:16.0.4] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/c6f56573f900bb8412460acf50b2ba2e/AndroidManifest.xml:23:5-67
+MERGED from [com.google.firebase:firebase-database:16.0.4] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/c6f56573f900bb8412460acf50b2ba2e/AndroidManifest.xml:23:5-67
+	android:name
+		ADDED from [com.mapbox.mapboxsdk:mapbox-android-sdk:6.6.3] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/cec68e60f47b1e192bdf3baaffaae389/AndroidManifest.xml:16:22-64
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [com.mapbox.mapboxsdk:mapbox-android-sdk:6.6.3] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/cec68e60f47b1e192bdf3baaffaae389/AndroidManifest.xml:17:5-79
+MERGED from [com.google.firebase:firebase-database:16.0.4] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/c6f56573f900bb8412460acf50b2ba2e/AndroidManifest.xml:22:5-79
+MERGED from [com.google.firebase:firebase-database:16.0.4] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/c6f56573f900bb8412460acf50b2ba2e/AndroidManifest.xml:22:5-79
+	android:name
+		ADDED from [com.mapbox.mapboxsdk:mapbox-android-sdk:6.6.3] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/cec68e60f47b1e192bdf3baaffaae389/AndroidManifest.xml:17:22-76
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from [com.mapbox.mapboxsdk:mapbox-android-sdk:6.6.3] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/cec68e60f47b1e192bdf3baaffaae389/AndroidManifest.xml:18:5-76
+	android:name
+		ADDED from [com.mapbox.mapboxsdk:mapbox-android-sdk:6.6.3] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/cec68e60f47b1e192bdf3baaffaae389/AndroidManifest.xml:18:22-73
+activity#com.google.android.gms.auth.api.signin.internal.SignInHubActivity
+ADDED from [com.google.android.gms:play-services-auth:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/bef623f93f2cec3dc00f733cbaddde41/AndroidManifest.xml:23:9-27:75
+	android:excludeFromRecents
+		ADDED from [com.google.android.gms:play-services-auth:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/bef623f93f2cec3dc00f733cbaddde41/AndroidManifest.xml:25:13-46
+	android:exported
+		ADDED from [com.google.android.gms:play-services-auth:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/bef623f93f2cec3dc00f733cbaddde41/AndroidManifest.xml:26:13-37
+	android:theme
+		ADDED from [com.google.android.gms:play-services-auth:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/bef623f93f2cec3dc00f733cbaddde41/AndroidManifest.xml:27:13-72
+	android:name
+		ADDED from [com.google.android.gms:play-services-auth:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/bef623f93f2cec3dc00f733cbaddde41/AndroidManifest.xml:24:13-93
+service#com.google.android.gms.auth.api.signin.RevocationBoundService
+ADDED from [com.google.android.gms:play-services-auth:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/bef623f93f2cec3dc00f733cbaddde41/AndroidManifest.xml:33:9-36:110
+	android:exported
+		ADDED from [com.google.android.gms:play-services-auth:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/bef623f93f2cec3dc00f733cbaddde41/AndroidManifest.xml:35:13-36
+	android:permission
+		ADDED from [com.google.android.gms:play-services-auth:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/bef623f93f2cec3dc00f733cbaddde41/AndroidManifest.xml:36:13-107
+	android:name
+		ADDED from [com.google.android.gms:play-services-auth:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/bef623f93f2cec3dc00f733cbaddde41/AndroidManifest.xml:34:13-89
+activity#com.google.firebase.auth.internal.FederatedSignInActivity
+ADDED from [com.google.firebase:firebase-auth:16.0.5] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/d88782bc54b2e6284db77e5ccee3aeae/AndroidManifest.xml:24:9-31:50
+	android:excludeFromRecents
+		ADDED from [com.google.firebase:firebase-auth:16.0.5] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/d88782bc54b2e6284db77e5ccee3aeae/AndroidManifest.xml:26:13-46
+	android:launchMode
+		ADDED from [com.google.firebase:firebase-auth:16.0.5] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/d88782bc54b2e6284db77e5ccee3aeae/AndroidManifest.xml:28:13-44
+	android:exported
+		ADDED from [com.google.firebase:firebase-auth:16.0.5] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/d88782bc54b2e6284db77e5ccee3aeae/AndroidManifest.xml:27:13-36
+	android:permission
+		ADDED from [com.google.firebase:firebase-auth:16.0.5] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/d88782bc54b2e6284db77e5ccee3aeae/AndroidManifest.xml:29:13-102
+	android:theme
+		ADDED from [com.google.firebase:firebase-auth:16.0.5] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/d88782bc54b2e6284db77e5ccee3aeae/AndroidManifest.xml:30:13-72
+	tools:replace
+		ADDED from [com.google.firebase:firebase-auth:16.0.5] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/d88782bc54b2e6284db77e5ccee3aeae/AndroidManifest.xml:31:13-47
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:16.0.5] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/d88782bc54b2e6284db77e5ccee3aeae/AndroidManifest.xml:25:13-85
+service#com.google.firebase.components.ComponentDiscoveryService
+ADDED from [com.google.firebase:firebase-auth:16.0.5] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/d88782bc54b2e6284db77e5ccee3aeae/AndroidManifest.xml:33:9-39:19
+	android:exported
+		ADDED from [com.google.firebase:firebase-auth:16.0.5] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/d88782bc54b2e6284db77e5ccee3aeae/AndroidManifest.xml:35:13-37
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:16.0.5] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/d88782bc54b2e6284db77e5ccee3aeae/AndroidManifest.xml:34:13-84
+meta-data#com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar
+ADDED from [com.google.firebase:firebase-auth:16.0.5] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/d88782bc54b2e6284db77e5ccee3aeae/AndroidManifest.xml:36:13-38:85
+	android:value
+		ADDED from [com.google.firebase:firebase-auth:16.0.5] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/d88782bc54b2e6284db77e5ccee3aeae/AndroidManifest.xml:38:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:16.0.5] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/d88782bc54b2e6284db77e5ccee3aeae/AndroidManifest.xml:37:17-109
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/7ce7705d004bb4a5fd642ff812315a3b/AndroidManifest.xml:23:9-26:75
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/7ce7705d004bb4a5fd642ff812315a3b/AndroidManifest.xml:25:13-37
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/7ce7705d004bb4a5fd642ff812315a3b/AndroidManifest.xml:26:13-72
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:16.0.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/7ce7705d004bb4a5fd642ff812315a3b/AndroidManifest.xml:24:13-79
+provider#com.google.firebase.provider.FirebaseInitProvider
+ADDED from [com.google.firebase:firebase-common:16.0.3] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/b33d58b872be90037081a5ce2ac45467/AndroidManifest.xml:10:9-14:39
+	android:authorities
+		ADDED from [com.google.firebase:firebase-common:16.0.3] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/b33d58b872be90037081a5ce2ac45467/AndroidManifest.xml:12:13-72
+	android:exported
+		ADDED from [com.google.firebase:firebase-common:16.0.3] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/b33d58b872be90037081a5ce2ac45467/AndroidManifest.xml:13:13-37
+	android:initOrder
+		ADDED from [com.google.firebase:firebase-common:16.0.3] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/b33d58b872be90037081a5ce2ac45467/AndroidManifest.xml:14:13-36
+	android:name
+		ADDED from [com.google.firebase:firebase-common:16.0.3] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/b33d58b872be90037081a5ce2ac45467/AndroidManifest.xml:11:13-77
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-basement:16.1.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/e4626410f1d70ad7a76ccb17afcd3b39/AndroidManifest.xml:23:9-25:69
+	android:value
+		ADDED from [com.google.android.gms:play-services-basement:16.1.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/e4626410f1d70ad7a76ccb17afcd3b39/AndroidManifest.xml:25:13-66
+	android:name
+		ADDED from [com.google.android.gms:play-services-basement:16.1.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/e4626410f1d70ad7a76ccb17afcd3b39/AndroidManifest.xml:24:13-58
+service#com.mapbox.android.telemetry.TelemetryService
+ADDED from [com.mapbox.mapboxsdk:mapbox-android-telemetry:3.2.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/8fe505b4adde064a60c621813a3db385/AndroidManifest.xml:16:9-81
+	android:name
+		ADDED from [com.mapbox.mapboxsdk:mapbox-android-telemetry:3.2.1] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/8fe505b4adde064a60c621813a3db385/AndroidManifest.xml:16:18-78
+provider#android.arch.lifecycle.ProcessLifecycleOwnerInitializer
+ADDED from [android.arch.lifecycle:extensions:1.1.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/62130f0406fab373c0ab84a3857ada40/AndroidManifest.xml:23:9-27:43
+	android:authorities
+		ADDED from [android.arch.lifecycle:extensions:1.1.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/62130f0406fab373c0ab84a3857ada40/AndroidManifest.xml:25:13-68
+	android:multiprocess
+		ADDED from [android.arch.lifecycle:extensions:1.1.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/62130f0406fab373c0ab84a3857ada40/AndroidManifest.xml:27:13-40
+	android:exported
+		ADDED from [android.arch.lifecycle:extensions:1.1.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/62130f0406fab373c0ab84a3857ada40/AndroidManifest.xml:26:13-37
+	android:name
+		ADDED from [android.arch.lifecycle:extensions:1.1.0] /Users/rehanz/.gradle/caches/transforms-2/files-2.1/62130f0406fab373c0ab84a3857ada40/AndroidManifest.xml:24:13-83
