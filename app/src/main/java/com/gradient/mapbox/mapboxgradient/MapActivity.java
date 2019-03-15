@@ -31,6 +31,7 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
@@ -68,7 +69,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
     private final LatLng mDefaultLocation = new LatLng(-33.8523341, 151.2106085);
-    private static final int DEFAULT_ZOOM = 8;
+    private static final int DEFAULT_ZOOM = 15;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean mLocationPermissionGranted;
 
@@ -176,6 +177,12 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         registerViewModelObservables();
         mMap = googleMap;
         mMap.setOnCameraMoveListener(this);
+
+        boolean success = googleMap.setMapStyle(new MapStyleOptions(getResources()
+                .getString(R.string.gm_style_json)));
+        if (!success) {
+            Log.e(TAG, "Style parsing failed.");
+        }
 
         getLocationPermission();
         startLocationUpdates();
