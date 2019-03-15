@@ -17,7 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-
+import android.location.Geocoder;
+import android.location.Address;
 import com.google.firebase.auth.FirebaseAuth;
 
 // imports for google maps
@@ -57,12 +58,14 @@ import org.json.JSONObject;
 import java.io.InputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import com.gradient.mapbox.mapboxgradient.ViewModels.HeatmapViewModel;
-
 import java.util.List;
+import java.util.Locale;
 
-public class MapActivity extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener, GoogleMap.OnCameraMoveListener {
+import com.gradient.mapbox.mapboxgradient.Models.MyFeature;
+import com.gradient.mapbox.mapboxgradient.ViewModels.HeatmapViewModel;
+import com.gradient.mapbox.mapboxgradient.Views.HeatmapControlPanelView;
+
+public class MapActivity extends FragmentActivity implements OnMapReadyCallback, HeatmapControlPanelView.HeatmapControlsListener, View.OnClickListener, GoogleMap.OnCameraMoveListener {
     private static final String TAG = MapActivity.class.getSimpleName();
     private GoogleMap mMap;
     private CameraPosition mCameraPosition;
@@ -88,6 +91,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     private HeatmapViewModel mViewModel;
 
     private TextView zoomLabelView;
+    private HeatmapControlPanelView heatmapPanelView;
     private FloatingActionButton centerMeFABView;
 
     private static final int ALT_HEATMAP_RADIUS = 10;
@@ -146,9 +150,11 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         // Attach control click listeners
         zoomLabelView = findViewById(R.id.zoomLabelView);
         centerMeFABView = findViewById(R.id.centerMe);
+        heatmapPanelView = findViewById(R.id.heatmapPanel);
         findViewById(R.id.logoutButton).setOnClickListener(this);
         findViewById(R.id.fittoScreen).setOnClickListener(this);
         centerMeFABView.setOnClickListener(this);
+        heatmapPanelView.setControlsListener(this);
 
         // Viewmodel instance
         mViewModel = ViewModelProviders.of( this).get(HeatmapViewModel.class);
@@ -268,6 +274,10 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         boolean updateMap = mLastKnownLocation == null ? true : false;
         mLastKnownLocation = location;
         if(updateMap){
+            Double lat = mLastKnownLocation.getLatitude();
+            Double lng = mLastKnownLocation.getLongitude();
+            String geoCodedAddress = getCompleteAddressString(lat, lng);
+            heatmapPanelView.setFeature(new MyFeature(new com.mapbox.mapboxsdk.geometry.LatLng(lat, lng), geoCodedAddress));
             updateMapToLastKnownLocation();
         }
 
@@ -291,11 +301,13 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     private void registerViewModelObservables() {
 
         // Feature that must be displayed in control panel
-//        mViewModel.getDisplayedFeature().observe(this, (displayedFeature) -> {
-//            if (displayedFeature != null) {
-//                heatmapPanelView.setFeature(displayedFeature);
-//            }
-//        });
+        mViewModel.getDisplayedFeature().observe(this, (displayedFeature) -> {
+            System.out.println("displayedFeature are -");
+            System.out.println(displayedFeature);
+            if (displayedFeature != null) {
+                heatmapPanelView.setFeature(displayedFeature);
+            }
+        });
 
 
         // Toast listener. Receives messages from viewmodel on login/register events and displays toasts
@@ -306,10 +318,38 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         });
 
         // Toggle voting. It is disable while processing API requests
-//        mViewModel.getIsVotingAllowed().observe(this, allowed -> heatmapPanelView.setVotingAllowed(allowed));
+        mViewModel.getIsVotingAllowed().observe(this, allowed -> heatmapPanelView.setVotingAllowed(allowed));
+    }
+
+
+    @Override
+    public void onNewVote(String featureId, double vote) {
+        mViewModel.onNewVote(featureId, vote);
     }
 
     private void addHeatMap() {
+
+
+        mViewModel.getFeatures().observe(this, features -> {
+            if (features == null) return;
+            System.out.println("features are -");
+            System.out.println(features);
+//            // Convert MyFeature to Mapbox geojsonsource
+//            FeatureCollection geoSource = MyFeature.myFeaturesToFeatureCollection(features);
+//
+//            // Update map source data
+//            GeoJsonSource source = (GeoJsonSource) mapboxMap.getSource(HEATMAP_SOURCE_ID);
+//            if (source != null) {
+//                source.setGeoJson(geoSource);
+//            }
+//
+//            // fit map to show all features (for the first time only)
+//            if (isFirstDataLoad) {
+//                fitlocationsToScreen( MyFeature.featuresToLocations(features));
+//                isFirstDataLoad = false;
+//            }
+        });
+
         List<LatLng> list = null;
 
         // Get the data: latitude/longitude positions of police stations.
@@ -436,5 +476,30 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
                 })
                 .setNegativeButton(R.string.no, null)
                 .show();
+    }
+
+    /**
+     * Used to geocode the lat, lng values to string address using geocoder
+     */
+    private String getCompleteAddressString(double LATITUDE, double LONGITUDE) {
+        String strAdd = "";
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocation(LATITUDE, LONGITUDE, 1);
+            if (addresses != null) {
+                Address returnedAddress = addresses.get(0);
+                StringBuilder strReturnedAddress = new StringBuilder("");
+
+                for (int i = 0; i <= returnedAddress.getMaxAddressLineIndex(); i++) {
+                    strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n");
+                }
+                strAdd = strReturnedAddress.toString();
+            } else {
+                System.out.println("No Address returned!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return strAdd;
     }
 }

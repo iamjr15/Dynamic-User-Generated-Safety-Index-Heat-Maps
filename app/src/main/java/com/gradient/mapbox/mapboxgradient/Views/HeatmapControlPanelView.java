@@ -51,7 +51,7 @@ public class HeatmapControlPanelView extends RelativeLayout implements View.OnCl
 
 
         // set view initial states
-        toggleControlsVisibility(false);
+        toggleControlsVisibility(true);
 
         // set button listeners
         view.findViewById(R.id.buttonRed).setOnClickListener(this);
