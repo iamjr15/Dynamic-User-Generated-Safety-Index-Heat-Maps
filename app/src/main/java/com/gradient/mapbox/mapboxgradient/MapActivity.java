@@ -39,6 +39,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.TileOverlay;
 import com.google.android.gms.maps.model.TileOverlayOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.maps.android.heatmaps.WeightedLatLng;
 import com.google.maps.android.heatmaps.Gradient;
 import com.google.maps.android.heatmaps.HeatmapTileProvider;
 import com.gradient.mapbox.mapboxgradient.Models.MyFeature;
@@ -69,7 +70,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
     private final LatLng mDefaultLocation = new LatLng(-33.8523341, 151.2106085);
-    private static final int DEFAULT_ZOOM = 15;
+    private static final int DEFAULT_ZOOM = 5;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean mLocationPermissionGranted;
 
@@ -104,6 +105,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
     private HeatmapTileProvider mProvider;
     private TileOverlay mOverlay;
+
+//    private List<WeightedLatLng> heatMapList = null;
 
     private boolean mDefaultGradient = true;
     private boolean mDefaultRadius = true;
@@ -308,9 +311,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
         // Feature that must be displayed in control panel
         mViewModel.getDisplayedFeature().observe(this, (displayedFeature) -> {
-            System.out.println("displayedFeature are -");
-            System.out.println(displayedFeature);
             if (displayedFeature != null) {
+                System.out.println("displayedFeature are -");
+                System.out.println(displayedFeature);
                 heatmapPanelView.setFeature(displayedFeature);
             }
         });
@@ -334,43 +337,20 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     }
 
     private void addHeatMap() {
-
-
         mViewModel.getFeatures().observe(this, features -> {
+            ArrayList<WeightedLatLng> heatMapList = new ArrayList<>();
             if (features == null) return;
-            System.out.println("features are -");
-            System.out.println(features);
-//            // Convert MyFeature to Mapbox geojsonsource
-//            FeatureCollection geoSource = MyFeature.myFeaturesToFeatureCollection(features);
-//
-//            // Update map source data
-//            GeoJsonSource source = (GeoJsonSource) mapboxMap.getSource(HEATMAP_SOURCE_ID);
-//            if (source != null) {
-//                source.setGeoJson(geoSource);
-//            }
-//
-//            // fit map to show all features (for the first time only)
-//            if (isFirstDataLoad) {
-//                fitlocationsToScreen( MyFeature.featuresToLocations(features));
-//                isFirstDataLoad = false;
-//            }
+
+            for (MyFeature item : features) {
+                heatMapList.add(new WeightedLatLng(item.getLatLng(), item.getTotalScore()));
+            }
+            // Create a heat map tile provider, passing it the latlngs of the police stations.
+            mProvider = new HeatmapTileProvider.Builder()
+                    .weightedData(heatMapList)
+                    .build();
+            // Add a tile overlay to the map, using the heat map tile provider.
+            mOverlay = mMap.addTileOverlay(new TileOverlayOptions().tileProvider(mProvider));
         });
-
-        List<LatLng> list = null;
-
-        // Get the data: latitude/longitude positions of police stations.
-        try {
-            list = readItems("earthquakesOLD.geojson");
-        } catch (Exception e) {
-            Toast.makeText(this, "Problem reading list of locations.", Toast.LENGTH_LONG).show();
-        }
-
-        // Create a heat map tile provider, passing it the latlngs of the police stations.
-        mProvider = new HeatmapTileProvider.Builder()
-                .data(list)
-                .build();
-        // Add a tile overlay to the map, using the heat map tile provider.
-        mOverlay = mMap.addTileOverlay(new TileOverlayOptions().tileProvider(mProvider));
     }
 
     private ArrayList<LatLng> readItems(String filename) throws JSONException {
