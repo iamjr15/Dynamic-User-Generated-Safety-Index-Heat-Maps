@@ -3,6 +3,7 @@ package com.gradient.mapbox.mapboxgradient.helpers
 import android.util.Log
 import com.google.android.gms.maps.model.LatLng
 import com.gradient.mapbox.mapboxgradient.Models.Volunteers
+import com.gradient.mapbox.mapboxgradient.Preferences
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.subscribeBy
 
@@ -30,25 +31,33 @@ object DataGeneratorHelper {
      */
     fun generateSaveRandomVolunteersNearMe(myLocation: LatLng) {
 
-        Observable.fromArray(volunteersData)
-                .flatMapIterable { volunteer -> volunteer }
-                .flatMap { volunteer ->
-                    val location = LocationUtils.getRandomLocation(myLocation, 500)
-                    val volunteers = Volunteers("",volunteer.first, volunteer.second, location.latitude, location.longitude)
-                    VolunteersHelper.saveVolunteersRefInFireBaseDB(volunteers)
-                }
-                .subscribeBy(
-                        onNext = {
-                            if (it)
-                                Log.i(TAG, "Added Volunteer info to DB.")
-                        },
-                        onError = {
-                            it.printStackTrace()
-                        }
-                )
+        val volunteersAdded = Preferences.getInstance().getBoolean(Preferences.SP_VOLUNTEERS_ADDED, false)
+
+        if (!volunteersAdded) {
+            Observable.fromArray(volunteersData)
+                    .flatMapIterable { volunteer -> volunteer }
+                    .flatMap { volunteer ->
+                        val location = LocationUtils.getRandomLocation(myLocation, 500)
+                        val volunteers = Volunteers("", volunteer.first, volunteer.second, location.latitude, location.longitude)
+                        VolunteersHelper.saveVolunteersRefInFireBaseDB(volunteers)
+                    }
+                    .subscribeBy(
+                            onNext = {
+                                if (it)
+                                    Log.i(TAG, "Added Volunteer info to DB.")
+                            },
+                            onError = {
+                                it.printStackTrace()
+                            }
+                    )
+
+            //Set 'true' if list of volunteers are added to DB
+            Preferences.getInstance().save(Preferences.SP_VOLUNTEERS_ADDED, true)
+        }
     }
 
     fun clearPreviouslySavedVolunteersInfo() {
+        Preferences.getInstance().save(Preferences.SP_VOLUNTEERS_ADDED, false)
         VolunteersHelper.deleteVolunteersInfo()
     }
 }
