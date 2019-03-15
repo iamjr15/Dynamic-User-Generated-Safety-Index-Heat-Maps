@@ -7,10 +7,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.gradient.mapbox.mapboxgradient.ViewModels.AccountViewModel;
+import com.gradient.mapbox.mapboxgradient.helpers.DataGeneratorHelper;
 
 public class AccountActivity extends BaseActivity  {
     private static final String TAG = AccountActivity.class.getSimpleName();
@@ -50,8 +50,9 @@ public class AccountActivity extends BaseActivity  {
                 // User signed and logged in, but phone not verified.
                 Log.d(TAG, "getUser().observe: (user != null), getPhoneNumber is empty");
                 startFragment(new AccountPhoneAuthFragment(), R.id.contentFrame);
-            } else {
 
+                DataGeneratorHelper.INSTANCE.clearPreviouslySavedVolunteersInfo();
+            } else {
                 Log.d(TAG, "getUser().observe: (user != null), getPhoneNumber is NOT empty");
                 startActivity(new Intent(AccountActivity.this, MapActivity.class));
                 finish();

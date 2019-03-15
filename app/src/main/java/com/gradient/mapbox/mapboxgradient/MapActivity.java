@@ -6,64 +6,56 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.location.Geocoder;
-import android.location.Address;
-import com.google.firebase.auth.FirebaseAuth;
 
-// imports for google maps
-import android.support.v4.app.FragmentActivity;
-
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
-
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-
 import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.SettingsClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.OnFailureListener;
-
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.TileOverlay;
 import com.google.android.gms.maps.model.TileOverlayOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.maps.android.heatmaps.Gradient;
 import com.google.maps.android.heatmaps.HeatmapTileProvider;
-
-import android.graphics.Color;
+import com.gradient.mapbox.mapboxgradient.Models.MyFeature;
+import com.gradient.mapbox.mapboxgradient.ViewModels.HeatmapViewModel;
+import com.gradient.mapbox.mapboxgradient.Views.HeatmapControlPanelView;
+import com.gradient.mapbox.mapboxgradient.helpers.DataGeneratorHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import com.gradient.mapbox.mapboxgradient.Models.MyFeature;
-import com.gradient.mapbox.mapboxgradient.ViewModels.HeatmapViewModel;
-import com.gradient.mapbox.mapboxgradient.Views.HeatmapControlPanelView;
+// imports for google maps
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback, HeatmapControlPanelView.HeatmapControlsListener, View.OnClickListener, GoogleMap.OnCameraMoveListener {
     private static final String TAG = MapActivity.class.getSimpleName();
@@ -157,7 +149,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         heatmapPanelView.setControlsListener(this);
 
         // Viewmodel instance
-        mViewModel = ViewModelProviders.of( this).get(HeatmapViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(HeatmapViewModel.class);
     }
 
     /**
@@ -260,41 +252,48 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
                         },
                         Looper.myLooper());
             }
-        } catch (SecurityException e)  {
+        } catch (SecurityException e) {
             Log.e("Exception: %s", e.getMessage());
         }
     }
 
-    private void stopLocationUpdates(){
-        mFusedLocationProviderClient.removeLocationUpdates(new LocationCallback(){});
+    private void stopLocationUpdates() {
+        mFusedLocationProviderClient.removeLocationUpdates(new LocationCallback() {
+        });
         Log.i(TAG, "stopLocationUpdates(): Location updates removed");
     }
 
     public void onLocationChanged(Location location) {
         boolean updateMap = mLastKnownLocation == null ? true : false;
         mLastKnownLocation = location;
-        if(updateMap){
+
+        if (updateMap) {
             Double lat = mLastKnownLocation.getLatitude();
             Double lng = mLastKnownLocation.getLongitude();
             String geoCodedAddress = getCompleteAddressString(lat, lng);
-            heatmapPanelView.setFeature(new MyFeature(new com.mapbox.mapboxsdk.geometry.LatLng(lat, lng), geoCodedAddress));
+            heatmapPanelView.setFeature(new MyFeature(new LatLng(lat, lng), geoCodedAddress));
             updateMapToLastKnownLocation();
+            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+            mViewModel.onLocationChanged(latLng, geoCodedAddress);
+            DataGeneratorHelper.INSTANCE.generateSaveRandomVolunteersNearMe(latLng);
         }
 
         // New location has now been determined
-        String msg = "Updated Location: " +
+        /*String msg = "Updated Location: " +
                 Double.toString(location.getLatitude()) + "," +
                 Double.toString(location.getLongitude());
-        Log.i(TAG, msg);
+        Log.i(TAG, msg);*/
     }
 
     /**
      * Set the map's camera position to the last known location of the device.
      */
     private void updateMapToLastKnownLocation() {
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                new LatLng(mLastKnownLocation.getLatitude(),
-                        mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+        if (mLastKnownLocation != null) {
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                    new LatLng(mLastKnownLocation.getLatitude(),
+                            mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+        }
     }
 
     @SuppressLint("RestrictedApi")
@@ -311,7 +310,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
 
         // Toast listener. Receives messages from viewmodel on login/register events and displays toasts
-        mViewModel.getToastMessage().observe(this, (msg)-> {
+        mViewModel.getToastMessage().observe(this, (msg) -> {
             if (msg != null) {
                 msg.show(getApplicationContext());
             }
@@ -441,7 +440,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
     @Override
     public void onClick(View view) {
-        switch(view.getId()) {
+        switch (view.getId()) {
             case R.id.logoutButton:
                 FirebaseAuth mAuth = FirebaseAuth.getInstance();
                 mAuth.signOut();

@@ -10,8 +10,12 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.gradient.mapbox.mapboxgradient.Models.Crime;
 import com.gradient.mapbox.mapboxgradient.Models.MyFeature;
 import com.gradient.mapbox.mapboxgradient.R;
+import com.gradient.mapbox.mapboxgradient.helpers.CrimeReportHelper;
+import com.gradient.mapbox.mapboxgradient.helpers.VolunteersHelper;
 
 
 public class HeatmapControlPanelView extends RelativeLayout implements View.OnClickListener {
@@ -22,8 +26,8 @@ public class HeatmapControlPanelView extends RelativeLayout implements View.OnCl
     private HeatmapControlsListener controlslistener;
     private MyFeature displayedFeature;
 
-    private final static double VOTE_RED = -0.25;
-    private final static double VOTE_BLUE = 0.25;
+    private final static double VOTE_RED = -0.50;
+    private final static double VOTE_YELLOW = -0.25;
     private final static double VOTE_GREEN = 0.75;
     private boolean isVotingAlowed = true;
 
@@ -49,14 +53,13 @@ public class HeatmapControlPanelView extends RelativeLayout implements View.OnCl
         voteButtonHolderView = view.findViewById(R.id.voteButtonHolder);
 
 
-
         // set view initial states
         toggleControlsVisibility(true);
 
         // set button listeners
         view.findViewById(R.id.buttonRed).setOnClickListener(this);
         view.findViewById(R.id.buttonGreen).setOnClickListener(this);
-        view.findViewById(R.id.buttonBlue).setOnClickListener(this);
+        view.findViewById(R.id.buttonYellow).setOnClickListener(this);
     }
 
     private void toggleControlsVisibility(boolean visible) {
@@ -78,7 +81,7 @@ public class HeatmapControlPanelView extends RelativeLayout implements View.OnCl
         this.displayedFeature = feature;
 
         // Display feature data in the view
-        addressLabel.setText( feature.getName() );
+        addressLabel.setText(feature.getName());
         scoreLabel.setText(
                 String.format("%s: %s/%d",
                         getResources().getString(R.string.score),
@@ -99,7 +102,6 @@ public class HeatmapControlPanelView extends RelativeLayout implements View.OnCl
     }
 
 
-
     /**
      * Listens for Red, Green, Blue vote button clicks
      */
@@ -112,26 +114,59 @@ public class HeatmapControlPanelView extends RelativeLayout implements View.OnCl
         // Assign vote valute depending on the clicked button
         double vote;
 
+
         switch (view.getId()) {
-            case R.id.buttonBlue: vote = VOTE_BLUE; break;
-            case R.id.buttonGreen: vote = VOTE_GREEN; break;
-            case R.id.buttonRed: vote = VOTE_RED; break;
-            default: vote = 0;
+            case R.id.buttonYellow: {
+                vote = VOTE_YELLOW;
+                doOnCrimeReported();
+                break;
+            }
+            case R.id.buttonGreen:
+                vote = VOTE_GREEN;
+                break;
+            case R.id.buttonRed:
+                doOnCrimeReported();
+                vote = VOTE_RED;
+                break;
+            default:
+                vote = 0;
         }
 
         // Check if displayedFeature is set, to get rid of null exeptions
         String featureId = "";
-        if(displayedFeature != null) featureId = displayedFeature.getId();
+        if (displayedFeature != null) featureId = displayedFeature.getId();
 
         // Send the vote to listener
         if (controlslistener != null)
             controlslistener.onNewVote(featureId, vote);
     }
 
+    private void doOnCrimeReported() {
+        LatLng latLng = new LatLng(displayedFeature.getLat(), displayedFeature.getLng());
+
+        //Alert All Volunteers
+        VolunteersHelper.INSTANCE.alertAllVolunteers(latLng);
+
+        //Report Crime
+        reportCrime();
+    }
+
+    private void reportCrime(){
+
+        Crime crime = new Crime();
+        crime.setAddress(displayedFeature.getName());
+        crime.setLat(displayedFeature.getLat());
+        crime.setLng(displayedFeature.getLng());
+        crime.setTime(System.currentTimeMillis());
+
+        CrimeReportHelper.INSTANCE.reportCrime(crime);
+    }
+
     // Vote click listener
     public interface HeatmapControlsListener {
         void onNewVote(String featureId, double vote);
     }
+
     public void setControlsListener(HeatmapControlsListener listener) {
         this.controlslistener = listener;
     }

@@ -3,25 +3,16 @@ package com.gradient.mapbox.mapboxgradient.ViewModels;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
-import android.graphics.PointF;
-import android.location.Location;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
+import com.google.android.gms.maps.model.LatLng;
+import com.gradient.mapbox.mapboxgradient.APIs.FirebaseMapboxDao;
+import com.gradient.mapbox.mapboxgradient.APIs.FirebaseUserDao;
 import com.gradient.mapbox.mapboxgradient.Models.Msg;
 import com.gradient.mapbox.mapboxgradient.Models.MyFeature;
 import com.gradient.mapbox.mapboxgradient.Models.Vote;
 import com.gradient.mapbox.mapboxgradient.R;
-import com.gradient.mapbox.mapboxgradient.APIs.FirebaseMapboxDao;
-import com.gradient.mapbox.mapboxgradient.APIs.FirebaseUserDao;
-import com.gradient.mapbox.mapboxgradient.APIs.MapboxDao;
 import com.gradient.mapbox.mapboxgradient.SingleLiveEvent;
-import com.mapbox.geojson.Feature;
-import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
 
 import java.util.List;
 import java.util.Objects;
@@ -47,12 +38,22 @@ public class HeatmapViewModel extends ViewModel {
     public MutableLiveData<MyFeature> getUserFeature() {
         return userFeature;
     }
+
     public MutableLiveData<MyFeature> getDisplayedFeature() {
         return displayedFeature;
     }
-    public MutableLiveData<List<MyFeature>> getFeatures() { return features; }
-    public LiveData<Msg> getToastMessage() { return toast; }
-    public MutableLiveData<Boolean> getIsVotingAllowed() { return isVotingAllowed; }
+
+    public MutableLiveData<List<MyFeature>> getFeatures() {
+        return features;
+    }
+
+    public LiveData<Msg> getToastMessage() {
+        return toast;
+    }
+
+    public MutableLiveData<Boolean> getIsVotingAllowed() {
+        return isVotingAllowed;
+    }
 
     public HeatmapViewModel() {
         // Register heatmap Firebase data listener
@@ -65,29 +66,24 @@ public class HeatmapViewModel extends ViewModel {
     /**
      * Receives location changes from GPS. On location change cheks if this is a new place
      * and tries to decode the new location into a place name
-     * @param location - GPS location
+     *
+     * @param latLng - GPS location
      */
-    public void onLocationChanged(Location location) {
-        // DEBUGGING. Injects demo locations for testing purposes
-//        location = DemoLocation.getRandLatLng();
+    public void onLocationChanged(LatLng latLng, String placeName) {
 
         //todo check if distance from previous location is far enough to refresh API calls in order to minimise API calls
 
-        // decode user location into place name and it's center location
-        MapboxDao.geocodeLocation(location, (placeName, centerLocation) -> {
+        // Find Feature in dataset by geocoded location. If not found - new record is created
+        FirebaseMapboxDao.getInstance().getOrCreateFeature(latLng, placeName, feature -> {
 
-            // Find Feature in dataset by geocoded location. If not found - new record is created
-            FirebaseMapboxDao.getInstance().getOrCreateFeature(centerLocation, placeName, feature -> {
+            // If currently no feature is displayed, set userFeature also as displayedFeature
+            if (displayedFeature.getValue() == null)
+                displayedFeature.setValue(feature);
 
-                // If currently no feature is displayed, set userFeature also as displayedFeature
-                if (displayedFeature.getValue() == null)
-                    displayedFeature.setValue(feature);
-
-                // Update users feature (if its not the same as is currently)
-                if (userFeature.getValue() == null || userFeature.getValue().getId() != feature.getId()) {
-                    userFeature.setValue(feature);
-                }
-            });
+            // Update users feature (if its not the same as is currently)
+            if (userFeature.getValue() == null || userFeature.getValue().getId() != feature.getId()) {
+                userFeature.setValue(feature);
+            }
         });
     }
 
@@ -95,7 +91,7 @@ public class HeatmapViewModel extends ViewModel {
     /**
      * Click on heatmap circle event
      */
-    public void onMapClick(MapboxMap mapboxMap, LatLng point, String layerId) {
+    /*public void onMapClick(MapboxMap mapboxMap, LatLng point, String layerId) {
         Log.d(TAG, "onMapClick()");
 
         // Find feature by Map click location
@@ -109,15 +105,14 @@ public class HeatmapViewModel extends ViewModel {
 
             FirebaseMapboxDao.getInstance().getFeature(featureId, feature -> displayedFeature.setValue(feature));
         }
-    }
-
-
+    }*/
 
 
     /**
      * makes APi call to update Feature's totalScore and votes uantity
+     *
      * @param featureId - feature that is voted for
-     * @param vote - the vote value
+     * @param vote      - the vote value
      */
     public void onNewVote(String featureId, double vote) {
         Log.d(TAG, "onNewVote(): " + vote);
@@ -134,7 +129,7 @@ public class HeatmapViewModel extends ViewModel {
 
         // featureId, passed from HeatmapControlPanelView should always be the same as displayedFeature in ViewModel. Validating just in case..
         if (!displayedFeature.getValue().getId().equals(featureId)) {
-            Log.e(TAG, "onNewVote: voted featureId["+featureId+"] != displayedFeature.getId");
+            Log.e(TAG, "onNewVote: voted featureId[" + featureId + "] != displayedFeature.getId");
             return;
         }
 
@@ -164,18 +159,18 @@ public class HeatmapViewModel extends ViewModel {
 
                 // update User to feature voting score. Doing it with a callback to save from double votes
                 FirebaseUserDao.getInstance().updateUsersScoreForFeature(dFeature.getId(), usersNewScore, (databaseError, databaseReference) -> {
-                        // Save updated feature to displayedFeature observable
-                        displayedFeature.setValue(dFeature); //todo: take value from livedata list
+                    // Save updated feature to displayedFeature observable
+                    displayedFeature.setValue(dFeature); //todo: take value from livedata list
 
-                        // If displayedFeature (the one that just received a vote) is the same as userFeature, updating userFeature also
-                        String ufid = Objects.requireNonNull(userFeature.getValue()).getId();
-                        if (displayedFeature.getValue().getId().equals(ufid)) {
-                            userFeature.setValue(dFeature);
-                        }
+                    // If displayedFeature (the one that just received a vote) is the same as userFeature, updating userFeature also
+                    String ufid = Objects.requireNonNull(userFeature.getValue()).getId();
+                    if (displayedFeature.getValue().getId().equals(ufid)) {
+                        userFeature.setValue(dFeature);
+                    }
 
-                        // Turn on voting again
-                        isVotingAllowed.setValue(true);
-                    });
+                    // Turn on voting again
+                    isVotingAllowed.setValue(true);
+                });
 
             } else {
                 // no updates made as probably the score exceeded min/mxa values

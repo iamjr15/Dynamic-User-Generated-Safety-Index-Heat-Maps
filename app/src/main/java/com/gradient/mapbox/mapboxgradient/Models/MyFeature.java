@@ -1,11 +1,11 @@
 package com.gradient.mapbox.mapboxgradient.Models;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.Exclude;
 import com.google.gson.JsonObject;
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.FeatureCollection;
 import com.mapbox.geojson.Point;
-import com.mapbox.mapboxsdk.geometry.LatLng;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +23,10 @@ public class MyFeature {
      * Normal constructor
      */
     public MyFeature(LatLng location, String geocodedName) {
-        this.lat = location.getLatitude();
-        this.lng = location.getLongitude();
+        this.lat = location.latitude;
+        this.lng = location.longitude;
         this.name = geocodedName;
+        this.totalScore = 5.0f; //Set Initial score
 
         // Generate ID
         this.id = MyFeature.locationToFirebaseEntryId(location);
@@ -133,7 +134,7 @@ public class MyFeature {
      * @return
      */
     public static String locationToFirebaseEntryId(LatLng loc) {
-        String id = loc.getLatitude() + "@" + loc.getLongitude();
+        String id = loc.latitude + "@" + loc.longitude;
 
         return id.replaceAll("\\.", "-");
     }

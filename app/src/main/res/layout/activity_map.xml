@@ -71,7 +71,7 @@
     <com.gradient.mapbox.mapboxgradient.Views.HeatmapControlPanelView
         android:id="@+id/heatmapPanel"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="250dp"
         android:layout_alignParentBottom="true">
 
     </com.gradient.mapbox.mapboxgradient.Views.HeatmapControlPanelView>
