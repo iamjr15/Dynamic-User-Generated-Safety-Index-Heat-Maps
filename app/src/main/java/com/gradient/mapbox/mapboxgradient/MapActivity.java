@@ -2,158 +2,300 @@ package com.gradient.mapbox.mapboxgradient;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.gradient.mapbox.mapboxgradient.Models.MyFeature;
+
+// imports for google maps
+import android.support.v4.app.FragmentActivity;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.SettingsClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.OnFailureListener;
+
+import com.google.android.gms.maps.model.TileOverlay;
+import com.google.android.gms.maps.model.TileOverlayOptions;
+import com.google.maps.android.heatmaps.Gradient;
+import com.google.maps.android.heatmaps.HeatmapTileProvider;
+
+import android.graphics.Color;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.InputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import com.gradient.mapbox.mapboxgradient.ViewModels.HeatmapViewModel;
-import com.gradient.mapbox.mapboxgradient.Views.HeatmapControlPanelView;
-import com.mapbox.geojson.FeatureCollection;
-import com.mapbox.mapboxsdk.Mapbox;
-import com.mapbox.mapboxsdk.camera.CameraUpdate;
-import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
-import com.mapbox.mapboxsdk.geometry.LatLng;
-import com.mapbox.mapboxsdk.geometry.LatLngBounds;
-import com.mapbox.mapboxsdk.maps.MapView;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
-import com.mapbox.mapboxsdk.style.layers.CircleLayer;
-import com.mapbox.mapboxsdk.style.layers.HeatmapLayer;
-import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
 
 import java.util.List;
 
-import static com.mapbox.mapboxsdk.style.expressions.Expression.get;
-import static com.mapbox.mapboxsdk.style.expressions.Expression.interpolate;
-import static com.mapbox.mapboxsdk.style.expressions.Expression.linear;
-import static com.mapbox.mapboxsdk.style.expressions.Expression.stop;
-import static com.mapbox.mapboxsdk.style.expressions.Expression.zoom;
-import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.circleOpacity;
-import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.circleRadius;
-import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.heatmapIntensity;
-import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.heatmapOpacity;
-import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.heatmapRadius;
-import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.heatmapWeight;
-
-public class MapActivity extends BaseActivity implements MapboxMap.OnCameraMoveListener, OnMapReadyCallback, HeatmapControlPanelView.HeatmapControlsListener, View.OnClickListener {
+public class MapActivity extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener, GoogleMap.OnCameraMoveListener {
     private static final String TAG = MapActivity.class.getSimpleName();
+    private GoogleMap mMap;
+    private CameraPosition mCameraPosition;
 
-    private static final String HEATMAP_SOURCE_ID = "heatmap-source";
-    private static final String HEATMAP_LAYER_ID = "heatmap_layer";
-    private static final String CIRCLE_LAYER_ID = "click-circles";
-    private final static double CENTERME_ZOOM = 13;
+    // The entry point to the Fused Location Provider.
+    private FusedLocationProviderClient mFusedLocationProviderClient;
 
-    // Mapbox
-    private MapView mapView;
-    private MapboxMap mapboxMap;
+    // A default location (Sydney, Australia) and default zoom to use when location permission is
+    // not granted.
+    private final LatLng mDefaultLocation = new LatLng(-33.8523341, 151.2106085);
+    private static final int DEFAULT_ZOOM = 8;
+    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
+    private boolean mLocationPermissionGranted;
 
-    // Viewmodel
+    // The geographical location where the device is currently located. That is, the last-known
+    // location retrieved by the Fused Location Provider.
+    private Location mLastKnownLocation;
+
+    // Keys for storing activity state.
+    private static final String KEY_CAMERA_POSITION = "camera_position";
+    private static final String KEY_LOCATION = "location";
+
     private HeatmapViewModel mViewModel;
 
-    // Views
     private TextView zoomLabelView;
-    private HeatmapControlPanelView heatmapPanelView;
     private FloatingActionButton centerMeFABView;
-    private boolean isFirstDataLoad = true;
+
+    private static final int ALT_HEATMAP_RADIUS = 10;
+    private static final double ALT_HEATMAP_OPACITY = 0.4;
+    private static final int[] ALT_HEATMAP_GRADIENT_COLORS = {
+            Color.argb(0, 0, 255, 255),// transparent
+            Color.argb(255 / 3 * 2, 0, 255, 255),
+            Color.rgb(0, 191, 255),
+            Color.rgb(0, 0, 127),
+            Color.rgb(255, 0, 0)
+    };
+    public static final float[] ALT_HEATMAP_GRADIENT_START_POINTS = {
+            0.0f, 0.10f, 0.20f, 0.60f, 1.0f
+    };
+    public static final Gradient ALT_HEATMAP_GRADIENT = new Gradient(ALT_HEATMAP_GRADIENT_COLORS,
+            ALT_HEATMAP_GRADIENT_START_POINTS);
+
+    private HeatmapTileProvider mProvider;
+    private TileOverlay mOverlay;
+
+    private boolean mDefaultGradient = true;
+    private boolean mDefaultRadius = true;
+    private boolean mDefaultOpacity = true;
+
+    private static Context mContext;
+
+    private LocationRequest mLocationRequest;
+
+    private long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
+    private long FASTEST_INTERVAL = 2000; /* 2 sec */
 
     @SuppressLint("RestrictedApi")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate()");
+        mContext = this;
 
-        Mapbox.getInstance(this, getString(R.string.mapbox_access_token));
+        // Retrieve location and camera position from saved instance state.
+        if (savedInstanceState != null) {
+            mLastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
+            mCameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
+        }
 
+        // Retrieve the content view that renders the map.
         setContentView(R.layout.activity_map);
 
-        // View references
-        heatmapPanelView = findViewById(R.id.heatmapPanel);
+        // Construct a FusedLocationProviderClient.
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+        // Build the map.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapView);
+        mapFragment.getMapAsync(this);
+
+        Log.d(TAG, "onCreate()");
+
+        // Attach control click listeners
         zoomLabelView = findViewById(R.id.zoomLabelView);
         centerMeFABView = findViewById(R.id.centerMe);
-        centerMeFABView.setVisibility(View.INVISIBLE);
-
-        // click listeners
         findViewById(R.id.logoutButton).setOnClickListener(this);
         findViewById(R.id.fittoScreen).setOnClickListener(this);
         centerMeFABView.setOnClickListener(this);
-        heatmapPanelView.setControlsListener(this);
-
-        mapView = findViewById(R.id.mapView);
-        mapView.onCreate(savedInstanceState);
-        mapView.getMapAsync(this);
 
         // Viewmodel instance
         mViewModel = ViewModelProviders.of( this).get(HeatmapViewModel.class);
     }
 
+    /**
+     * Saves the state of the map when the activity is paused.
+     */
     @Override
-    public void onMapReady(MapboxMap mapboxMap) {
+    protected void onSaveInstanceState(Bundle outState) {
+        if (mMap != null) {
+            outState.putParcelable(KEY_CAMERA_POSITION, mMap.getCameraPosition());
+            outState.putParcelable(KEY_LOCATION, mLastKnownLocation);
+            super.onSaveInstanceState(outState);
+        }
+    }
+
+    /**
+     * Manipulates the map when it's available.
+     * This callback is triggered when the map is ready to be used.
+     */
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
         Log.d(TAG, "onMapReady()");
 
-        MapActivity.this.mapboxMap = mapboxMap;
-
-        // register GPS listener
-        startLocationUpdates();
-
-        // get Zoom level displayed
-        initDebugPanel();
-
-        // Viewmodel data observables
         registerViewModelObservables();
+        mMap = googleMap;
+        mMap.setOnCameraMoveListener(this);
 
-        // Add data to map
-        initiateHeatmapData();
-    }
-
-    private void initiateHeatmapData() {
-        // Create empty source, which will later be updated
-        mapboxMap.addSource(new GeoJsonSource(HEATMAP_SOURCE_ID));
-
-        // Add heatmap and click listenerlayers
-        addHeatmapLayer();
-        addHeatmapClickListener();
-
-        mViewModel.getFeatures().observe(this, features -> {
-            if (features == null) return;
-
-            // Convert MyFeature to Mapbox geojsonsource
-            FeatureCollection geoSource = MyFeature.myFeaturesToFeatureCollection(features);
-
-            // Update map source data
-            GeoJsonSource source = (GeoJsonSource) mapboxMap.getSource(HEATMAP_SOURCE_ID);
-            if (source != null) {
-                source.setGeoJson(geoSource);
-            }
-
-            // fit map to show all features (for the first time only)
-            if (isFirstDataLoad) {
-                fitlocationsToScreen( MyFeature.featuresToLocations(features));
-                isFirstDataLoad = false;
-            }
-        });
+        getLocationPermission();
+        startLocationUpdates();
+        addHeatMap();
     }
 
 
+    /**
+     * Prompts the user for permission to use the device location.
+     */
+    private void getLocationPermission() {
+        /*
+         * Request location permission, so that we can get the location of the
+         * device. The result of the permission request is handled by a callback,
+         * onRequestPermissionsResult.
+         */
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mLocationPermissionGranted = true;
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+        }
+    }
 
+    /**
+     * Handles the result of the request for location permissions.
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
+        mLocationPermissionGranted = false;
+        switch (requestCode) {
+            case PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    mLocationPermissionGranted = true;
+                }
+            }
+        }
+    }
+
+    /**
+     * Trigger new location updates at interval
+     */
+    private void startLocationUpdates() {
+        try {
+            if (mLocationPermissionGranted) {
+                // Create the location request to start receiving updates
+                mLocationRequest = new LocationRequest();
+                mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                mLocationRequest.setInterval(UPDATE_INTERVAL);
+                mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
+
+                // Create LocationSettingsRequest object using location request
+                LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
+                builder.addLocationRequest(mLocationRequest);
+                LocationSettingsRequest locationSettingsRequest = builder.build();
+
+                // Check whether location settings are satisfied
+                SettingsClient settingsClient = LocationServices.getSettingsClient(this);
+                settingsClient.checkLocationSettings(locationSettingsRequest);
+
+                // new Google API SDK v11 uses getFusedLocationProviderClient(this)
+                mFusedLocationProviderClient.requestLocationUpdates(mLocationRequest, new LocationCallback() {
+                            @Override
+                            public void onLocationResult(LocationResult locationResult) {
+                                onLocationChanged(locationResult.getLastLocation());
+                            }
+                        },
+                        Looper.myLooper());
+            }
+        } catch (SecurityException e)  {
+            Log.e("Exception: %s", e.getMessage());
+        }
+    }
+
+    private void stopLocationUpdates(){
+        mFusedLocationProviderClient.removeLocationUpdates(new LocationCallback(){});
+        Log.i(TAG, "stopLocationUpdates(): Location updates removed");
+    }
+
+    public void onLocationChanged(Location location) {
+        boolean updateMap = mLastKnownLocation == null ? true : false;
+        mLastKnownLocation = location;
+        if(updateMap){
+            updateMapToLastKnownLocation();
+        }
+
+        // New location has now been determined
+        String msg = "Updated Location: " +
+                Double.toString(location.getLatitude()) + "," +
+                Double.toString(location.getLongitude());
+        Log.i(TAG, msg);
+    }
+
+    /**
+     * Set the map's camera position to the last known location of the device.
+     */
+    private void updateMapToLastKnownLocation() {
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                new LatLng(mLastKnownLocation.getLatitude(),
+                        mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+    }
 
     @SuppressLint("RestrictedApi")
     private void registerViewModelObservables() {
 
         // Feature that must be displayed in control panel
-        mViewModel.getDisplayedFeature().observe(this, (displayedFeature) -> {
-            if (displayedFeature != null) {
-                heatmapPanelView.setFeature(displayedFeature);
-            }
-        });
+//        mViewModel.getDisplayedFeature().observe(this, (displayedFeature) -> {
+//            if (displayedFeature != null) {
+//                heatmapPanelView.setFeature(displayedFeature);
+//            }
+//        });
 
 
         // Toast listener. Receives messages from viewmodel on login/register events and displays toasts
@@ -164,150 +306,98 @@ public class MapActivity extends BaseActivity implements MapboxMap.OnCameraMoveL
         });
 
         // Toggle voting. It is disable while processing API requests
-        mViewModel.getIsVotingAllowed().observe(this, allowed -> heatmapPanelView.setVotingAllowed(allowed));
+//        mViewModel.getIsVotingAllowed().observe(this, allowed -> heatmapPanelView.setVotingAllowed(allowed));
     }
 
+    private void addHeatMap() {
+        List<LatLng> list = null;
 
-    @Override
-    public void onNewVote(String featureId, double vote) {
-        mViewModel.onNewVote(featureId, vote);
+        // Get the data: latitude/longitude positions of police stations.
+        try {
+            list = readItems("earthquakesOLD.geojson");
+        } catch (Exception e) {
+            Toast.makeText(this, "Problem reading list of locations.", Toast.LENGTH_LONG).show();
+        }
+
+        // Create a heat map tile provider, passing it the latlngs of the police stations.
+        mProvider = new HeatmapTileProvider.Builder()
+                .data(list)
+                .build();
+        // Add a tile overlay to the map, using the heat map tile provider.
+        mOverlay = mMap.addTileOverlay(new TileOverlayOptions().tileProvider(mProvider));
     }
 
+    private ArrayList<LatLng> readItems(String filename) throws JSONException {
+        String json = null;
+        JSONArray featuresArray = null;
+        ArrayList<LatLng> list = new ArrayList<LatLng>();
 
-    /**
-     * Adds the main layer which displays heatmaps
-     */
-    private void addHeatmapLayer() {
-        HeatmapLayer layer = new HeatmapLayer(HEATMAP_LAYER_ID, HEATMAP_SOURCE_ID);
-        layer.setMaxZoom(30);
-        layer.setProperties(
-//                heatmapWeight(get("avgScore")),
-                heatmapWeight(
-                        interpolate(
-                                linear(), get("avgScore"),
-                                stop(0, 0.5),
-                                stop(10, 5)
-                        )
-                ),
-                heatmapOpacity(0.65f),
-                heatmapRadius(
-                        interpolate(
-                            linear(), zoom(),
-                            stop(5, 15),
-                            stop(14.5, 80)
-                        )
-                ),
-                heatmapIntensity(
-                        interpolate(
-                            linear(), zoom(),
-                            stop(5, 0.5),
-                            stop(14.5, 1)
-                        )
-                )
-        );
-        mapboxMap.addLayer(layer);
+        // Convert to string JSON
+        try {
+            InputStream inputStream = getAssets().open(filename);
+            int size = inputStream.available();
+            byte[] buffer = new byte[size];
+            inputStream.read(buffer);
+            inputStream.close();
+            json = new String(buffer, "UTF-8");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Parse to JSON
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            featuresArray = jsonObject.getJSONArray("features");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Construct lat lng array list from the generated JSON
+        for (int i = 0; i < featuresArray.length(); i++) {
+            JSONObject feature = featuresArray.getJSONObject(i);
+            double lat = (double) feature.getJSONObject("geometry").getJSONArray("coordinates").get(0);
+            double lng = (double) feature.getJSONObject("geometry").getJSONArray("coordinates").get(1);
+            list.add(new LatLng(lat, lng));
+        }
+        return list;
     }
-
-
-    /**
-     * HeatmapLayer can't be directly listened for a click, so we add CircleLayer sonsisting
-     * same features and with circles of same size as heatmaps
-     */
-    private void addHeatmapClickListener() {
-        Log.d(TAG, "addHeatmapClickListener()");
-
-        // Creating mock transparent circles of same size as heatmaps
-        CircleLayer circleLayer = new CircleLayer(CIRCLE_LAYER_ID, HEATMAP_SOURCE_ID);
-        circleLayer.setProperties(
-                circleRadius(
-                        interpolate(
-                                linear(), zoom(),
-                                stop(5, 15),
-                                stop(14.5, 80)
-                        )
-                ),
-                circleOpacity(0f)
-        );
-        mapboxMap.addLayerBelow(circleLayer, HEATMAP_LAYER_ID);
-
-        // Registering map click listener
-        mapboxMap.addOnMapClickListener(point -> mViewModel.onMapClick(mapboxMap, point, CIRCLE_LAYER_ID));
-    }
-
 
     @Override
     protected void onStart() {
         super.onStart();
-        mapView.onStart();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mapView.onResume();
         startLocationUpdates();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mapView.onPause();
+        stopLocationUpdates();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mapView.onStop();
         stopLocationUpdates();
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mapView.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        mapView.onLowMemory();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mapView.onDestroy();
+        stopLocationUpdates();
     }
 
-
-    /**
-     * Posts camera move actions to onCameraMove method
-     */
-    private void initDebugPanel() {
-        Log.d(TAG, "setupDebugPanel()");
-        mapboxMap.addOnCameraMoveListener(MapActivity.this);
-    }
     @Override
     public void onCameraMove() {
-        double zoomLvl = Math.round(mapboxMap.getCameraPosition().zoom * 10.0) / 10.0;
+        System.out.println("onCameraMove called");
+        double zoomLvl = Math.round(mMap.getCameraPosition().zoom * 10.0) / 10.0;
         this.zoomLabelView.setText("zoom: " + zoomLvl);
     }
-
-
-    @SuppressLint("RestrictedApi")
-    @Override
-    public void onLocationChanged(Location location) {
-        super.onLocationChanged(location);
-        Log.d(TAG, "onLocationChanged(): " + location.toString());
-
-        // Post new location to viewmodel
-        if (mViewModel != null)
-            mViewModel.onLocationChanged(location);
-
-        // Turn onCenter me button
-        centerMeFABView.setVisibility(View.VISIBLE);
-    }
-
 
     @Override
     public void onClick(View view) {
@@ -320,42 +410,14 @@ public class MapActivity extends BaseActivity implements MapboxMap.OnCameraMoveL
                 break;
 
             case R.id.fittoScreen:
-                List<MyFeature> features = mViewModel.getFeatures().getValue();
-                fitlocationsToScreen(
-                        MyFeature.featuresToLocations(features)
-                );
+                System.out.println("fit to screen tapped");
 
                 break;
 
             case R.id.centerMe:
-                centerMe();
+                updateMapToLastKnownLocation();
                 break;
         }
-    }
-
-    /**
-     * Moves map camera to user location
-     */
-    public void centerMe() {
-        if (mViewModel != null && mViewModel.getUserFeature().getValue() == null) return;
-
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(
-                mViewModel.getUserFeature().getValue().getLatLng(),
-                CENTERME_ZOOM
-        );
-        mapboxMap.easeCamera(cameraUpdate);
-    }
-
-    /**
-     * Reads all locations from features and fits them in to screen
-     */
-    private void fitlocationsToScreen(List<LatLng> locations) {
-        // Create bounds object
-        LatLngBounds.Builder boundsBuilder = new LatLngBounds.Builder();
-        boundsBuilder.includes(locations);
-
-        // Fit to screen
-        mapboxMap.animateCamera(CameraUpdateFactory.newLatLngBounds(boundsBuilder.build(), 100));
     }
 
 

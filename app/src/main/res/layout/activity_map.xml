@@ -4,17 +4,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.mapbox.mapboxsdk.maps.MapView
+    <!--<com.mapbox.mapboxsdk.maps.MapView-->
+        <!--android:id="@+id/mapView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_marginBottom="170dp"-->
+        <!--mapbox:mapbox_cameraTargetLat="40.73581"-->
+        <!--mapbox:mapbox_cameraTargetLng="-73.99155"-->
+        <!--mapbox:mapbox_cameraZoom="11"-->
+        <!--mapbox:mapbox_styleUrl="@string/mapbox_style_mapbox_streets">-->
+
+    <!--</com.mapbox.mapboxsdk.maps.MapView>-->
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="170dp"
-        mapbox:mapbox_cameraTargetLat="40.73581"
-        mapbox:mapbox_cameraTargetLng="-73.99155"
-        mapbox:mapbox_cameraZoom="11"
-        mapbox:mapbox_styleUrl="@string/mapbox_style_mapbox_streets">
-
-    </com.mapbox.mapboxsdk.maps.MapView>
+        tools:context=".MapActivity"
+        android:name="com.google.android.gms.maps.SupportMapFragment" />
 
     <!--Logout button-->
     <Button
@@ -66,11 +75,11 @@
 
 
 
-    <com.gradient.mapbox.mapboxgradient.Views.HeatmapControlPanelView
-        android:id="@+id/heatmapPanel"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_alignParentBottom="true">
+    <!--<com.gradient.mapbox.mapboxgradient.Views.HeatmapControlPanelView-->
+        <!--android:id="@+id/heatmapPanel"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="200dp"-->
+        <!--android:layout_alignParentBottom="true">-->
 
-    </com.gradient.mapbox.mapboxgradient.Views.HeatmapControlPanelView>
+    <!--</com.gradient.mapbox.mapboxgradient.Views.HeatmapControlPanelView>-->
 </RelativeLayout>
