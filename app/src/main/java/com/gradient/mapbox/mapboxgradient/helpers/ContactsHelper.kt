@@ -8,34 +8,34 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.gradient.mapbox.mapboxgradient.BuildConfig
-import com.gradient.mapbox.mapboxgradient.Models.Volunteers
+import com.gradient.mapbox.mapboxgradient.Models.Contacts
 import io.reactivex.Observable
 
 
-object VolunteersHelper {
+object ContactsHelper {
 
-    private val TAG = "VolunteersHelper"
+    private val TAG = "ContactsHelper"
 
     //Firebase DB Tables
-    private const val VOLUNTEERS_ROOT = "volunteers"
+    private const val CONTACTS_ROOT = "contacts"
 
     val dbRef by lazy { FirebaseDatabase.getInstance().getReferenceFromUrl(BuildConfig.FIREBASE_URL) }
 
-    fun saveVolunteersRefInFireBaseDB(volunteers: Volunteers): Observable<Boolean> {
+    fun saveContactsRefInFireBaseDB(contacts: Contacts): Observable<Boolean> {
 
         return Observable.create { emitter ->
 
-            val databaseReference = dbRef.child(VOLUNTEERS_ROOT)
+            val databaseReference = dbRef.child(CONTACTS_ROOT)
 
             val key = databaseReference.push().key
 
-            volunteers.id = key!!
+            contacts.id = key!!
 
-            val values = volunteers.toMap()
+            val values = contacts.toMap()
 
             val updates: HashMap<String, Any> = hashMapOf()
 
-            updates["/$VOLUNTEERS_ROOT/$key"] = values
+            updates["/$CONTACTS_ROOT/$key"] = values
 
             dbRef.updateChildren(updates).addOnCompleteListener {
                 if (it.isSuccessful) {
@@ -68,31 +68,31 @@ object VolunteersHelper {
         return FirebaseAuth.getInstance().currentUser
     }
 
-    fun alertAllVolunteers(myLocation: LatLng) {
+    fun sendMyLocationToContacts(myLocation: LatLng) {
 
         val currentUser = getCurrentUser()
-        val databaseReference = dbRef.child(VOLUNTEERS_ROOT)
+        val databaseReference = dbRef.child(CONTACTS_ROOT)
 
         databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (data in dataSnapshot.children) {
 
-                    data.getValue(Volunteers::class.java)?.let { dbData ->
+                    data.getValue(Contacts::class.java)?.let { dbData ->
 
-                        val volunteerInfo = dbData
+                        val info = dbData
 
-                        volunteerInfo.isNewCrimeReported = true
+                        info.isNewCrimeReported = true
                         currentUser?.displayName?.let {
-                            volunteerInfo.victimUserName = it
+                            info.victimUserName = it
                         }
-                        volunteerInfo.crimeLat = myLocation.latitude
-                        volunteerInfo.crimeLng = myLocation.longitude
+                        info.crimeLat = myLocation.latitude
+                        info.crimeLng = myLocation.longitude
 
-                        val values = volunteerInfo.toMap()
+                        val values = info.toMap()
 
                         val updates: HashMap<String, Any> = hashMapOf()
 
-                        updates["/$VOLUNTEERS_ROOT/${dbData.id}"] = values
+                        updates["/$CONTACTS_ROOT/${dbData.id}"] = values
 
                         dbRef.updateChildren(updates)
                     }
@@ -105,8 +105,8 @@ object VolunteersHelper {
         })
     }
 
-    fun deleteVolunteersInfo() {
-        val databaseReference = dbRef.child(VOLUNTEERS_ROOT)
+    fun deleteContactsInfo() {
+        val databaseReference = dbRef.child(CONTACTS_ROOT)
         databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for (data in dataSnapshot.children) {

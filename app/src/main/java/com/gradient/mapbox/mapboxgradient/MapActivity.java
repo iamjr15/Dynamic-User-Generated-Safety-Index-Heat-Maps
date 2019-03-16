@@ -285,6 +285,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
             mViewModel.onLocationChanged(latLng, geoCodedAddress);
             DataGeneratorHelper.INSTANCE.generateSaveRandomVolunteersNearMe(latLng);
+            DataGeneratorHelper.INSTANCE.generateMockedContactsData();
         }
 
         // New location has now been determined
