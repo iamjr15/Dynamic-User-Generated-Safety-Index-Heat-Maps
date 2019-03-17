@@ -41,6 +41,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.maps.android.heatmaps.Gradient;
 import com.google.maps.android.heatmaps.HeatmapTileProvider;
 import com.google.maps.android.heatmaps.WeightedLatLng;
+import com.gradient.mapbox.mapboxgradient.Models.Crime;
 import com.gradient.mapbox.mapboxgradient.Models.MyFeature;
 import com.gradient.mapbox.mapboxgradient.ViewModels.HeatmapViewModel;
 import com.gradient.mapbox.mapboxgradient.Views.HeatmapControlPanelView;
@@ -343,16 +344,30 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         mViewModel.onNewVote(featureId, vote);
     }
 
-    private void addHeatMap() {
-        mViewModel.getFeatures().observe(this, features -> {
-            ArrayList<WeightedLatLng> heatMapList = new ArrayList<>();
-            if (features == null) return;
+    @Override
+    public void onCrimeReported(Crime crime) {
+        mViewModel.onCrimeReported(crime);
+    }
 
+    private void addHeatMap() {
+        mViewModel.getReportedCrimes().observe(this, crimes -> {
+            ArrayList<WeightedLatLng> heatMapList = new ArrayList<>();
+            if (crimes == null) return;
+
+            for (Crime item : crimes) {
+                LatLng latLng = new LatLng(item.getLat(), item.getLng());
+
+                Log.i(TAG, "addHeatMap: Score: " + item.getTotalScore());
+
+<<<<<<< HEAD
             for (MyFeature item : features) {
                 if(item.getLat() == mLastKnownLocation.getLatitude() && item.getLng() == mLastKnownLocation.getLongitude()){
                     System.out.println("Rehan Logs: Equality reached");
                 }
                 heatMapList.add(new WeightedLatLng(item.getLatLng(), item.getTotalScore()));
+=======
+                heatMapList.add(new WeightedLatLng(latLng, item.getTotalScore()));
+>>>>>>> f6ee9ae0863dcb839206d9b3482157ebc89a140b
             }
 
             System.out.println("Rehan Logs: Heatmap data list size: " + heatMapList.size());

@@ -110,6 +110,43 @@ object CrimeReportHelper {
         }
     }
 
+    fun getReportedCrimes(): Observable<List<Crime>> {
+
+        val crimesList = arrayListOf<Crime>()
+
+        return Observable.create { emitter ->
+            val databaseReference = dbRef.child(CRIME_ROOT)
+
+            databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                    if (dataSnapshot.hasChildren()) {
+                        dataSnapshot.getValue(Crime::class.java)?.let { dbData ->
+                            crimesList.add(dbData);
+                        }
+
+                        if (!emitter.isDisposed) {
+                            emitter.onNext(crimesList)
+                            emitter.onComplete()
+                        }
+                    } else {
+                        if (!emitter.isDisposed) {
+                            emitter.onComplete()
+                        }
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    databaseError.toException().stackTrace
+
+                    if (!emitter.isDisposed) {
+                        emitter.onComplete()
+                    }
+                }
+            })
+        }
+    }
+
 
     /**
      * This will return current signed in 'FireBase User
