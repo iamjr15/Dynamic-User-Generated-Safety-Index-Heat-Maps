@@ -128,6 +128,8 @@ public class HeatmapViewModel extends ViewModel {
         }
 
         // featureId, passed from HeatmapControlPanelView should always be the same as displayedFeature in ViewModel. Validating just in case..
+        System.out.println("feature id: " + featureId);
+        System.out.println("Displayed feature id: " + displayedFeature.getValue().getId());
         if (!displayedFeature.getValue().getId().equals(featureId)) {
             Log.e(TAG, "onNewVote: voted featureId[" + featureId + "] != displayedFeature.getId");
             return;

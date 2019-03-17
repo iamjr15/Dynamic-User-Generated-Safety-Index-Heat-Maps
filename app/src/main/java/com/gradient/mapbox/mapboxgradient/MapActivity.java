@@ -70,7 +70,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
     private final LatLng mDefaultLocation = new LatLng(-33.8523341, 151.2106085);
-    private static final int DEFAULT_ZOOM = 5;
+    private static final int DEFAULT_ZOOM = 18;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean mLocationPermissionGranted;
 
@@ -88,29 +88,35 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     private HeatmapControlPanelView heatmapPanelView;
     private FloatingActionButton centerMeFABView;
 
-    private static final int ALT_HEATMAP_RADIUS = 10;
-    private static final double ALT_HEATMAP_OPACITY = 0.4;
-    private static final int[] ALT_HEATMAP_GRADIENT_COLORS = {
+    private static final int HEATMAP_RADIUS = 50;
+    private static final int[] HEATMAP_GRADIENT_COLORS = {
             Color.argb(0, 0, 255, 255),// transparent
             Color.argb(255 / 3 * 2, 0, 255, 255),
             Color.rgb(0, 191, 255),
             Color.rgb(0, 0, 127),
             Color.rgb(255, 0, 0)
     };
-    public static final float[] ALT_HEATMAP_GRADIENT_START_POINTS = {
+    public static final float[] HEATMAP_GRADIENT_START_POINTS = {
             0.0f, 0.10f, 0.20f, 0.60f, 1.0f
     };
-    public static final Gradient ALT_HEATMAP_GRADIENT = new Gradient(ALT_HEATMAP_GRADIENT_COLORS,
-            ALT_HEATMAP_GRADIENT_START_POINTS);
+    public static final Gradient HEATMAP_GRADIENT = new Gradient(HEATMAP_GRADIENT_COLORS,
+            HEATMAP_GRADIENT_START_POINTS);
+
+    // Create the gradient.
+    int[] colors = {
+            Color.rgb(0, 0, 255), // blue
+            Color.rgb(255, 0, 0)    // red
+    };
+
+    float[] startPoints = {
+            0.2f, 1f
+    };
+
+    Gradient gradient = new Gradient(colors, startPoints);
 
     private HeatmapTileProvider mProvider;
     private TileOverlay mOverlay;
-
-//    private List<WeightedLatLng> heatMapList = null;
-
-    private boolean mDefaultGradient = true;
-    private boolean mDefaultRadius = true;
-    private boolean mDefaultOpacity = true;
+    private Boolean heatMapDataLoadedOnce = false;
 
     private static Context mContext;
 
@@ -274,25 +280,24 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     }
 
     public void onLocationChanged(Location location) {
-        boolean updateMap = mLastKnownLocation == null ? true : false;
-        mLastKnownLocation = location;
+        boolean updateMap = (mLastKnownLocation != null) && (mLastKnownLocation.getLatitude() == location.getLatitude()) && (mLastKnownLocation.getLongitude() == location.getLongitude()) ? false : true;
 
-        if (updateMap) {
+        if(updateMap) {
+            mLastKnownLocation = location;
+
             Double lat = mLastKnownLocation.getLatitude();
             Double lng = mLastKnownLocation.getLongitude();
+            System.out.println("Rehan Logs: Location Updated: " + lat + "," + lng);
             String geoCodedAddress = getCompleteAddressString(lat, lng);
             heatmapPanelView.setFeature(new MyFeature(new LatLng(lat, lng), geoCodedAddress));
+
             updateMapToLastKnownLocation();
+
             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
             mViewModel.onLocationChanged(latLng, geoCodedAddress);
             DataGeneratorHelper.INSTANCE.generateSaveRandomVolunteersNearMe(latLng);
         }
 
-        // New location has now been determined
-        /*String msg = "Updated Location: " +
-                Double.toString(location.getLatitude()) + "," +
-                Double.toString(location.getLongitude());
-        Log.i(TAG, msg);*/
     }
 
     /**
@@ -342,14 +347,28 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
             if (features == null) return;
 
             for (MyFeature item : features) {
+                if(item.getLat() == mLastKnownLocation.getLatitude() && item.getLng() == mLastKnownLocation.getLongitude()){
+                    System.out.println("Rehan Logs: Equality reached");
+                }
                 heatMapList.add(new WeightedLatLng(item.getLatLng(), item.getTotalScore()));
             }
-            // Create a heat map tile provider, passing it the latlngs of the police stations.
-            mProvider = new HeatmapTileProvider.Builder()
-                    .weightedData(heatMapList)
-                    .build();
-            // Add a tile overlay to the map, using the heat map tile provider.
-            mOverlay = mMap.addTileOverlay(new TileOverlayOptions().tileProvider(mProvider));
+
+            System.out.println("Rehan Logs: Heatmap data list size: " + heatMapList.size());
+
+            if(!heatMapDataLoadedOnce){
+                heatMapDataLoadedOnce = true;
+                // Create a heat map tile provider, passing it the latlngs of the police stations.
+                mProvider = new HeatmapTileProvider.Builder()
+                        .radius(HEATMAP_RADIUS)
+                        .weightedData(heatMapList)
+                        .gradient(gradient)
+                        .build();
+                // Add a tile overlay to the map, using the heat map tile provider.
+                mOverlay = mMap.addTileOverlay(new TileOverlayOptions().tileProvider(mProvider));
+            } else {
+                mProvider.setWeightedData(heatMapList);
+                mOverlay.clearTileCache();
+            }
         });
     }
 
