@@ -20,6 +20,8 @@
     <string name="registration_failed">Registration failed</string>
     <string name="phone">Phone</string>
     <string name="logout">Logout</string>
+    <string name="shareloc">Share Location</string>
+    <string name="stopShareLoc">Stop Location Sharing</string>
     <string name="registration_failed_empty_fields">Registration failed. Please provide registration data</string>
     <string name="logout_on_exit">Are you sure to exit? You will be logged out</string>
     <string name="yes">Yes</string>

@@ -12,6 +12,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -46,6 +47,7 @@ import com.gradient.mapbox.mapboxgradient.Models.MyFeature;
 import com.gradient.mapbox.mapboxgradient.ViewModels.HeatmapViewModel;
 import com.gradient.mapbox.mapboxgradient.Views.HeatmapControlPanelView;
 import com.gradient.mapbox.mapboxgradient.helpers.DataGeneratorHelper;
+import com.gradient.mapbox.mapboxgradient.helpers.ContactsHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -67,10 +69,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     // The entry point to the Fused Location Provider.
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
-    // A default location (Sydney, Australia) and default zoom to use when location permission is
-    // not granted.
-    private final LatLng mDefaultLocation = new LatLng(-33.8523341, 151.2106085);
-
     private static final int DEFAULT_ZOOM = 14;
 
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
@@ -89,6 +87,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     private TextView zoomLabelView;
     private HeatmapControlPanelView heatmapPanelView;
     private FloatingActionButton centerMeFABView;
+    private TextView shareLocButton;
+    private TextView stopShareLocButton;
 
     private static final int HEATMAP_RADIUS = 50;
     private static final int[] HEATMAP_GRADIENT_COLORS = {
@@ -127,6 +127,13 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     private long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
     private long FASTEST_INTERVAL = 2000; /* 2 sec */
 
+    // For share location after every 5 mins
+    private boolean sendLocUpdates = false;
+    private int mCounter;
+    private Handler mHandler;
+    private Runnable mRunnable;
+    private int mInterval = 5 * 60 * 1000; // 5 mins
+
     @SuppressLint("RestrictedApi")
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -153,15 +160,21 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
         // Attach control click listeners
         zoomLabelView = findViewById(R.id.zoomLabelView);
+        shareLocButton = findViewById(R.id.shareLoc);
+        stopShareLocButton = findViewById(R.id.stopShareLoc);
         centerMeFABView = findViewById(R.id.centerMe);
         heatmapPanelView = findViewById(R.id.heatmapPanel);
         findViewById(R.id.logoutButton).setOnClickListener(this);
+        findViewById(R.id.shareLoc).setOnClickListener(this);
+        findViewById(R.id.stopShareLoc).setOnClickListener(this);
         findViewById(R.id.fittoScreen).setOnClickListener(this);
         centerMeFABView.setOnClickListener(this);
         heatmapPanelView.setControlsListener(this);
 
         // Viewmodel instance
         mViewModel = ViewModelProviders.of(this).get(HeatmapViewModel.class);
+
+        mHandler = new Handler();
     }
 
     /**
@@ -461,12 +474,44 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
                 break;
 
+            case R.id.shareLoc:
+                startLocationSharing();
+                break;
+
+            case R.id.stopShareLoc:
+                stopLocationSharing();
+                break;
+
             case R.id.centerMe:
                 updateMapToLastKnownLocation();
                 break;
         }
     }
 
+    private void startLocationSharing() {
+        sendLocUpdates = true;
+        shareLocButton.setVisibility(View.GONE);
+        stopShareLocButton.setVisibility(View.VISIBLE);
+
+        mCounter = 0;
+        mRunnable = new Runnable() {
+            @Override
+            public void run() {
+                mCounter ++;
+                System.out.println("Send location updated back - " + mCounter);
+                ContactsHelper.INSTANCE.sendMyLocationToContacts(new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude()));
+                mHandler.postDelayed(mRunnable, mInterval);
+            }
+        };
+        mHandler.postDelayed(mRunnable, (mInterval));
+    }
+
+    private void stopLocationSharing() {
+        sendLocUpdates = false;
+        mHandler.removeCallbacks(mRunnable);
+        shareLocButton.setVisibility(View.VISIBLE);
+        stopShareLocButton.setVisibility(View.GONE);
+    }
 
     @Override
     public void onBackPressed() {

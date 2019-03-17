@@ -19,11 +19,33 @@
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/mapView"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="170dp"
-        tools:context=".MapActivity"
-        android:name="com.google.android.gms.maps.SupportMapFragment" />
+        tools:context=".MapActivity" />
+
+    <!--Share location Button-->
+    <Button
+        android:id="@+id/shareLoc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="258dp"
+        android:text="@string/shareloc" />
+
+    <Button
+        android:id="@+id/stopShareLoc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="258dp"
+        android:text="@string/stopShareLoc"
+        android:visibility="gone" />
 
     <!--Logout button-->
     <Button
