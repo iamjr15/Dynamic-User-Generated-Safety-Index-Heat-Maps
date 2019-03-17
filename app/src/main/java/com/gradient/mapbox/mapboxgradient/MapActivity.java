@@ -289,7 +289,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
             Double lat = mLastKnownLocation.getLatitude();
             Double lng = mLastKnownLocation.getLongitude();
-            System.out.println("Rehan Logs: Location Updated: " + lat + "," + lng);
             String geoCodedAddress = getCompleteAddressString(lat, lng);
             heatmapPanelView.setFeature(new MyFeature(new LatLng(lat, lng), geoCodedAddress));
 
@@ -320,8 +319,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         // Feature that must be displayed in control panel
         mViewModel.getDisplayedFeature().observe(this, (displayedFeature) -> {
             if (displayedFeature != null) {
-                System.out.println("displayedFeature are -");
-                System.out.println(displayedFeature);
                 heatmapPanelView.setFeature(displayedFeature);
             }
         });
@@ -356,21 +353,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
             for (Crime item : crimes) {
                 LatLng latLng = new LatLng(item.getLat(), item.getLng());
-
                 Log.i(TAG, "addHeatMap: Score: " + item.getTotalScore());
-
-<<<<<<< HEAD
-            for (MyFeature item : features) {
-                if(item.getLat() == mLastKnownLocation.getLatitude() && item.getLng() == mLastKnownLocation.getLongitude()){
-                    System.out.println("Rehan Logs: Equality reached");
-                }
-                heatMapList.add(new WeightedLatLng(item.getLatLng(), item.getTotalScore()));
-=======
                 heatMapList.add(new WeightedLatLng(latLng, item.getTotalScore()));
->>>>>>> f6ee9ae0863dcb839206d9b3482157ebc89a140b
             }
-
-            System.out.println("Rehan Logs: Heatmap data list size: " + heatMapList.size());
 
             if(!heatMapDataLoadedOnce){
                 heatMapDataLoadedOnce = true;
