@@ -8,14 +8,20 @@ import android.util.Log;
 import com.google.android.gms.maps.model.LatLng;
 import com.gradient.mapbox.mapboxgradient.APIs.FirebaseMapboxDao;
 import com.gradient.mapbox.mapboxgradient.APIs.FirebaseUserDao;
+import com.gradient.mapbox.mapboxgradient.Models.Crime;
 import com.gradient.mapbox.mapboxgradient.Models.Msg;
 import com.gradient.mapbox.mapboxgradient.Models.MyFeature;
 import com.gradient.mapbox.mapboxgradient.Models.Vote;
 import com.gradient.mapbox.mapboxgradient.R;
 import com.gradient.mapbox.mapboxgradient.SingleLiveEvent;
+import com.gradient.mapbox.mapboxgradient.helpers.CrimeReportHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 import static com.gradient.mapbox.mapboxgradient.APIs.FirebaseUserDao.USERSCORE_ERROR_NO_ENTRY;
 
@@ -30,6 +36,8 @@ public class HeatmapViewModel extends ViewModel {
     private SingleLiveEvent<Msg> toast = new SingleLiveEvent<>();
     private MutableLiveData<List<MyFeature>> features = new MutableLiveData<>();
     private MutableLiveData<Boolean> isVotingAllowed = new MutableLiveData<>();
+    private MutableLiveData<List<Crime>> crimesReported = new MutableLiveData<>();
+    private List<Crime> crimesReportedList = new ArrayList<>();
 
 
     /**
@@ -47,6 +55,10 @@ public class HeatmapViewModel extends ViewModel {
         return features;
     }
 
+    public MutableLiveData<List<Crime>> getReportedCrimes() {
+        return crimesReported;
+    }
+
     public LiveData<Msg> getToastMessage() {
         return toast;
     }
@@ -58,6 +70,30 @@ public class HeatmapViewModel extends ViewModel {
     public HeatmapViewModel() {
         // Register heatmap Firebase data listener
         FirebaseMapboxDao.getInstance().getFeatureList(items -> features.setValue(items));
+
+        CrimeReportHelper.INSTANCE.getReportedCrimes()
+                .subscribe(new Observer<List<Crime>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(List<Crime> crimes) {
+                        crimesReportedList.addAll(crimes);
+                        crimesReported.setValue(crimesReportedList);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
 
         isVotingAllowed.setValue(true);
     }
@@ -182,5 +218,10 @@ public class HeatmapViewModel extends ViewModel {
         });
     }
 
+
+    public void onCrimeReported(Crime crime) {
+        crimesReportedList.add(crime);
+        crimesReported.setValue(crimesReportedList);
+    }
 
 }

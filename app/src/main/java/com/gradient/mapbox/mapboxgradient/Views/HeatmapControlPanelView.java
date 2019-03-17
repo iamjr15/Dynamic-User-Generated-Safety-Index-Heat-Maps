@@ -170,7 +170,11 @@ public class HeatmapControlPanelView extends RelativeLayout implements View.OnCl
         crime.setAddress(displayedFeature.getName());
         crime.setLat(displayedFeature.getLat());
         crime.setLng(displayedFeature.getLng());
+        crime.setTotalScore(displayedFeature.getTotalScore());
         crime.setTime(System.currentTimeMillis());
+
+        if (controlslistener != null)
+            controlslistener.onCrimeReported(crime);
 
         CrimeReportHelper.INSTANCE.reportCrime(crime);
 
@@ -186,6 +190,7 @@ public class HeatmapControlPanelView extends RelativeLayout implements View.OnCl
     // Vote click listener
     public interface HeatmapControlsListener {
         void onNewVote(String featureId, double vote);
+        void onCrimeReported(Crime crime);
     }
 
     public void setControlsListener(HeatmapControlsListener listener) {
