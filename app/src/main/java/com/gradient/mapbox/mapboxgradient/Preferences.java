@@ -14,6 +14,7 @@ public final class Preferences {
 
     //Saved Preferences
     public static final String SP_VOLUNTEERS_ADDED = "sp_volunteers_added";
+    public static final String SP_CONTACTS_ADDED = "sp_contacts_added";
 
     private static Preferences mInstance = null;
     private SharedPreferences sharedPreferences;

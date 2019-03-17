@@ -11,9 +11,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.gradient.mapbox.mapboxgradient.Models.AreaReview;
 import com.gradient.mapbox.mapboxgradient.Models.Crime;
 import com.gradient.mapbox.mapboxgradient.Models.MyFeature;
 import com.gradient.mapbox.mapboxgradient.R;
+import com.gradient.mapbox.mapboxgradient.helpers.AreaReviewHelper;
+import com.gradient.mapbox.mapboxgradient.helpers.ContactsHelper;
 import com.gradient.mapbox.mapboxgradient.helpers.CrimeReportHelper;
 import com.gradient.mapbox.mapboxgradient.helpers.VolunteersHelper;
 
@@ -126,6 +129,14 @@ public class HeatmapControlPanelView extends RelativeLayout implements View.OnCl
                 break;
             case R.id.buttonRed:
                 doOnCrimeReported();
+
+                if (displayedFeature != null) {
+                    LatLng latLng = new LatLng(displayedFeature.getLat(), displayedFeature.getLng());
+
+                    //Alert All Volunteers
+                    ContactsHelper.INSTANCE.sendMyLocationToContacts(latLng);
+                }
+
                 vote = VOTE_RED;
                 break;
             default:
@@ -142,16 +153,18 @@ public class HeatmapControlPanelView extends RelativeLayout implements View.OnCl
     }
 
     private void doOnCrimeReported() {
-        LatLng latLng = new LatLng(displayedFeature.getLat(), displayedFeature.getLng());
+        if (displayedFeature != null) {
+            LatLng latLng = new LatLng(displayedFeature.getLat(), displayedFeature.getLng());
 
-        //Alert All Volunteers
-        VolunteersHelper.INSTANCE.alertAllVolunteers(latLng);
+            //Alert All Volunteers
+            VolunteersHelper.INSTANCE.alertAllVolunteers(latLng);
 
-        //Report Crime
-        reportCrime();
+            //Report Crime
+            reportCrime();
+        }
     }
 
-    private void reportCrime(){
+    private void reportCrime() {
 
         Crime crime = new Crime();
         crime.setAddress(displayedFeature.getName());
@@ -160,6 +173,14 @@ public class HeatmapControlPanelView extends RelativeLayout implements View.OnCl
         crime.setTime(System.currentTimeMillis());
 
         CrimeReportHelper.INSTANCE.reportCrime(crime);
+
+        AreaReview review = new AreaReview();
+        review.setAddress(displayedFeature.getName());
+        review.setLat(displayedFeature.getLat());
+        review.setLng(displayedFeature.getLng());
+        review.setTime(System.currentTimeMillis());
+
+        AreaReviewHelper.INSTANCE.saveAreaReview(review);
     }
 
     // Vote click listener

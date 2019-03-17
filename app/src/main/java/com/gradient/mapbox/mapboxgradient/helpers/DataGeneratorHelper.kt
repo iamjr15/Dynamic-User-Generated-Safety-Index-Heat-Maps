@@ -2,6 +2,7 @@ package com.gradient.mapbox.mapboxgradient.helpers
 
 import android.util.Log
 import com.google.android.gms.maps.model.LatLng
+import com.gradient.mapbox.mapboxgradient.Models.Contacts
 import com.gradient.mapbox.mapboxgradient.Models.Volunteers
 import com.gradient.mapbox.mapboxgradient.Preferences
 import io.reactivex.Observable
@@ -25,6 +26,18 @@ object DataGeneratorHelper {
             Pair("8", "Rathin Sajja"),
             Pair("9", "Nimish Ghosal"),
             Pair("10", "Nabarun Sthanumurthy"))
+
+    private val contactsData = arrayListOf<Pair<String, String>>(
+            Pair("1", "Vishwambhar Sarwate"),
+            Pair("2", "Taruntapan Sudesha"),
+            Pair("3", "Anarghya Cheran"),
+            Pair("4", "Vir Pamela"),
+            Pair("5", "Neelanjan Subramanian"),
+            Pair("6", "Premendra Venkateshwara"),
+            Pair("7", "Khazana Sangodkar"),
+            Pair("8", "Gourishankar Govindraj"),
+            Pair("9", "Nimish Ghosal"),
+            Pair("10", "Sujan Nirupa"))
 
     /**
      * This will generate random Volunteers data and save to Firebase DB.
@@ -56,8 +69,39 @@ object DataGeneratorHelper {
         }
     }
 
+    /**
+     * This will generate random Contacts data and save to Firebase DB.
+     */
+    fun generateMockedContactsData() {
+
+        val contactsAdded = Preferences.getInstance().getBoolean(Preferences.SP_CONTACTS_ADDED, false)
+
+        if (!contactsAdded) {
+            Observable.fromArray(contactsData)
+                    .flatMapIterable { list -> list }
+                    .flatMap {
+                        val contacts = Contacts("", it.first, it.second)
+                        ContactsHelper.saveContactsRefInFireBaseDB(contacts)
+                    }
+                    .subscribeBy(
+                            onNext = {
+                                if (it)
+                                    Log.i(TAG, "Added Contacts info to DB.")
+                            },
+                            onError = {
+                                it.printStackTrace()
+                            }
+                    )
+
+            //Set 'true' if list of volunteers are added to DB
+            Preferences.getInstance().save(Preferences.SP_CONTACTS_ADDED, true)
+        }
+    }
+
     fun clearPreviouslySavedVolunteersInfo() {
         Preferences.getInstance().save(Preferences.SP_VOLUNTEERS_ADDED, false)
+        Preferences.getInstance().save(Preferences.SP_CONTACTS_ADDED, false)
         VolunteersHelper.deleteVolunteersInfo()
+        ContactsHelper.deleteContactsInfo()
     }
 }

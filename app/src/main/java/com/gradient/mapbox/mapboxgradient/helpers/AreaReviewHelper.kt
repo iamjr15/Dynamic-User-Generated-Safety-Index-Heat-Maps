@@ -8,77 +8,71 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.gradient.mapbox.mapboxgradient.BuildConfig
-import com.gradient.mapbox.mapboxgradient.Models.Crime
+import com.gradient.mapbox.mapboxgradient.Models.AreaReview
 import io.reactivex.Observable
-import io.reactivex.rxkotlin.subscribeBy
 
 
-object CrimeReportHelper {
+object AreaReviewHelper {
 
-    private val TAG = "CrimeReportHelper"
+    private val TAG = "AreaReviewHelper"
 
     //Firebase DB Tables
-    private const val CRIME_ROOT = "crime"
+    private const val AREA_ROOT = "area_review"
 
     val dbRef by lazy { FirebaseDatabase.getInstance().getReferenceFromUrl(BuildConfig.FIREBASE_URL) }
 
-    fun reportCrime(crime: Crime) {
+    fun saveAreaReview(areaReview: AreaReview) {
 
-        isCrimeReportedForArea(crime)
+        //If areaReview is new for area
+        val databaseReference = dbRef.child(AREA_ROOT)
+
+        val key = databaseReference.push().key
+        saveReview(key, areaReview)
+
+        /*isReviewAddedForArea(areaReview)
                 .subscribeBy(
                         onNext = { reported ->
                             if (reported.id.isNotEmpty()) {
-                                Log.i(TAG, "Crime already reported, update crime! ${reported.id}")
-                                saveCrime(reported.id, crime)
+                                Log.i(TAG, "Review already added, update areaReview! ${reported.id}")
+                                saveReview(reported.id, areaReview)
                             } else {
-                                //If crime is new for area
-                                val databaseReference = dbRef.child(CRIME_ROOT)
 
-                                val key = databaseReference.push().key
-                                saveCrime(key, crime)
                             }
                         },
                         onError = {
                             it.printStackTrace()
                         }
-                )
+                )*/
     }
 
-    private fun saveCrime(key: String?, crime: Crime) {
-        getCurrentUser()?.let {
-            crime.userId = it.uid
+    private fun saveReview(key: String?, areaReview: AreaReview) {
 
-            it.displayName?.let {
-                crime.userName = it
-            }
-        }
+        areaReview.id = key!!
 
-        crime.id = key!!
-
-        val values = crime.toMap()
+        val values = areaReview.toMap()
 
         val updates: HashMap<String, Any> = hashMapOf()
 
-        updates["/$CRIME_ROOT/$key"] = values
+        updates["/$AREA_ROOT/$key"] = values
 
         dbRef.updateChildren(updates).addOnCompleteListener {
-            Log.i(TAG, "Crime reported!")
+            Log.i(TAG, "Review added!")
         }.addOnFailureListener {
             it.printStackTrace()
         }
     }
 
-    private fun isCrimeReportedForArea(crime: Crime): Observable<Crime> {
+    private fun isReviewAddedForArea(crime: AreaReview): Observable<AreaReview> {
 
         return Observable.create { emitter ->
-            val databaseReference = dbRef.child(CRIME_ROOT)
+            val databaseReference = dbRef.child(AREA_ROOT)
 
             databaseReference.orderByChild("address").equalTo(crime.address).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     if (dataSnapshot.hasChildren()) {
                         if (dataSnapshot.children.count() > 0) {
-                            dataSnapshot.children.first().getValue(Crime::class.java)?.let { dbData ->
-                                Log.i(TAG, "Crime found with address: ${crime.address}")
+                            dataSnapshot.children.first().getValue(AreaReview::class.java)?.let { dbData ->
+                                Log.i(TAG, "Review found with address: ${crime.address}")
 
                                 if (!emitter.isDisposed) {
                                     emitter.onNext(dbData)
